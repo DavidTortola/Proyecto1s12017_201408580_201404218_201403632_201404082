@@ -10,6 +10,7 @@ Carlos Andree Avalos Soto	201408580
 
 Lenguajes a utilizar:
 Phyton;
+Flask;
 Asp.net	- C#;
 Android;
 Java - JSP;
