@@ -1,4 +1,6 @@
-#Clase lista doble de forma horizontal (agrega nodos de izquierda a derecha).
+#Clase lista doble de forma vertical (agrega nodos de arriba a abajo).
+
+
 
 #Importaciones.
 #--------------
@@ -8,6 +10,8 @@ nm = NodoMatriz
 
 class ListaDobleV():
 
+
+
 	#Metodos constructor.
 	#-------------------
 
@@ -15,6 +19,8 @@ class ListaDobleV():
 		self.inicio = None
 		self.fin = None
 		self.tamanio = 0
+
+
 
 	#Metodos sets y gets.
 	#--------------------
@@ -36,6 +42,8 @@ class ListaDobleV():
 
 	def setTamanio(self, val):
 		self.tamanio = val
+
+
 
 	#Metodos de la lista doble.
 	#--------------------------
