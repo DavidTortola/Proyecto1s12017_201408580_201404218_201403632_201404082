@@ -6,8 +6,7 @@ LDV=ListaDobleV
 import ListaDobleH
 LDH=ListaDobleH
 import NodoMatriz
-nm = NodoMatriz
-
+nm=NodoMatriz
 #------------------------------------------------------------------------------------
 
 class Matriz(object):
