@@ -90,16 +90,17 @@ class ListaDobleV():
 
 				else:   #Si el noddo actual esta en medio de la lista, el nuevo nodo se inserta en medio de la lista.
 
-					nuevoNodo.setArriba(nodoAux.getIzquierda())
-					nodoAux.getIzquierda().setAbajo(nuevoNodo)
+					nuevoNodo.setArriba(nodoAux.getArriba())
+					nodoAux.getArriba().setAbajo(nuevoNodo)
 					nuevoNodo.setAbajo(nodoAux)
 					nodoAux.setArriba(nuevoNodo)
+
 					insertado = True
 					break
 
 		if insertado == False:	#Si no se inserto el nuevo nodo al recorrer la lista, se inserta al final de ella.
-			self.fin.setDerecha(nuevoNodo)
-			nuevoNodo.setIzquierda(self.fin)
+			self.fin.setAbajo(nuevoNodo)
+			nuevoNodo.setArriba(self.fin)
 			self.fin = nuevoNodo
 
 	#Recibe dos valores y devuelve true si val1 es mayor alfabeticamente.
@@ -136,13 +137,14 @@ class ListaDobleV():
 
 	#Busca un valor en la lista y devuelve el nodo que hace match, si lo encuentra.
 	def buscar(self, val):
+
 		if self.esVacia() == False:
+
 			nodoAux = self.inicio
 			while nodoAux != self.fin.getAbajo():
 				if nodoAux.getValor() == val:
 					return nodoAux
-				else:
-					nodoAux = nodoAux.getAbajo()
+				nodoAux = nodoAux.getAbajo()
 		return None
 
 	def eliminar(self, valor):

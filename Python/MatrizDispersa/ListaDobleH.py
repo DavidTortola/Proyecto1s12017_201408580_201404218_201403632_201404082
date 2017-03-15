@@ -137,6 +137,7 @@ class ListaDobleH():
 					nodoAux = nodoAux.getDerecha()
 		return None
 
+	#Elimina un nodo de la lista por valor.
 	def eliminar(self, valor):
 		if self.esVacia()==False:
 			nodoAux=self.inicio

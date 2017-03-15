@@ -5,7 +5,7 @@ class NodoMatriz(object):
 	#Metodos constructor.
 	#-------------------
 
-	def __init__(self, valor = None, derecha = None, izquierda = None, arriba = None, abajo = None, x = None, y = None):
+	def __init__(self, valor = None, y = None, x = None, derecha = None, izquierda = None, arriba = None, abajo = None):
 		self.valor = valor   	   #Campo para almacenar el valor del nodo.
 		self.derecha = derecha     #Apuntador hacia la derecha.
 		self.izquierda = izquierda #Apuntador hacia la izquierda.
