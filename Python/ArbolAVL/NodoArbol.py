@@ -1,11 +1,20 @@
+#Clase nodo para arboles AVL.
+
 class NodoArbol(object):
-	def __init__(self):
-		self.raiz=None
-		self.derecha=None
-		self.izquierda=None
-		self.valor=None
-		self.altura=0
+
+	#Metodos construcor.
+	#-------------------
+
+	def __init__(self, raiz = None, derecha = None, izquierda = None, valor = None, altura = 0):
+		self.raiz=raiz
+		self.derecha=derecha
+		self.izquierda=izquierda
+		self.valor=valor
+		self.altura=altura
 	
+	#Metodos sets y gets.
+	#--------------------
+
 	def setValor(self, valor):
 		self.valor=valor
 	def setDerecha(self,derecha):
@@ -27,5 +36,3 @@ class NodoArbol(object):
 		return self.raiz
 	def getAltura(self):
 		return self.altura
-
-
