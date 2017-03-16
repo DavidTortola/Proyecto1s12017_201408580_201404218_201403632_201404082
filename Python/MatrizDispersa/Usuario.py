@@ -16,12 +16,12 @@ class Usuario(object):
 		self.Arbol=arbol
 
 
-	def getNombre():
+	def getNombre(self):
 		return self.Nombre
-	def getUsuario():
+	def getUsuario(self):
 		return self.Usuario
-	def getContrasena():
+	def getContrasena(self):
 		return self.Contrasena
-	def getArbol():
+	def getArbol(self):
 		return self.Arbol
 

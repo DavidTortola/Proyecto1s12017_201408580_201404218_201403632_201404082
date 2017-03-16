@@ -1,12 +1,12 @@
 class NodoUsuarios(object):
-	def __init__(self, valor = None, letra = None, dominio = None, siguiente = None, anterior = None, arriba = None, abajo = None):
+	def __init__(self, valor = None, x = None, y = None, siguiente = None, anterior = None, arriba = None, abajo = None):
 		self.siguiente = siguiente
 		self.anterior = anterior
 		self.arriba = arriba
 		self.abajo = abajo
 		self.dato = valor
-		self.letra = letra
-		self.dominio = dominio
+		self.x = x
+		self.y = y
 
 	def getSiguiente(self):
 		return self.siguiente
@@ -44,14 +44,14 @@ class NodoUsuarios(object):
 	def setUltmio(self,ultimo):
 		return self.ultimo
 
-	def getLetra(self):
-		return self.letra
+	def getX(self):
+		return self.x
 
-	def setLetra(self, valorAux):
-		self.letra = valorAux
+	def setX(self, valorAux):
+		self.x = valorAux
 
-	def getDominio(self):
-		return self.dominio
+	def getY(self):
+		return self.y
 
-	def setDominio(self, valorAux):
-		self.dominio = valorAux
+	def setY(self, valorAux):
+		self.y = valorAux
