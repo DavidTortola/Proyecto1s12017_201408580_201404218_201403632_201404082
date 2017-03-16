@@ -1,10 +1,14 @@
+#--------------- Area de Imports --------------------------
 import NodoArbol
 NA= NodoArbol
-
+import subprocess
+#----------------------------------------------------------
 
 class AVL(object):
 	def __init__(self):
 		self.root= None
+		self.nivel=0
+		self.f=None
 
 	def insertar(self, valor):
 		self.root = self.insert(valor,self.root)
@@ -106,9 +110,9 @@ class AVL(object):
 	def RotacionDerecha(self,nodo):
 		#Creamos un nodo auxiliar
 		nodoaux= nodo.getDerecha()
-		#El hijo izquierdo del nodo va ser su propio nodo derecho
+		#El hijo derecho del nodo va ser su propio nodo izquierdo
 		nodo.setDerecha(nodoaux.getIzquierda())
-		#Ahora para establecemos el hijo derecho del auxiliar como el nodo 
+		#Ahora para establecemos el hijo izquierdo del auxiliar como el nodo 
 		nodoaux.setIzquierda(nodo)
 		#Establecemos la altura del nodo entrante
 		nodo.setAltura(self.MAX(self.altura(nodo.getDerecha()),self.altura(nodo.getIzquierda()))+1)
@@ -117,19 +121,134 @@ class AVL(object):
 		#Retornamos el nodo auxiliar para que sea la nueva raiz
 		return nodoaux
 
+	def RotacionDobleIzquierda(self,nodo):
+		nodo.setIzquierda(self.RotacionIzquierda(nodo.getIzquierda()))
+		return self.RotacionIzquierda(nodo)
+
+	def RotacionDobleDerecha(self,nodo):
+		nodo.setDerecha(self.RotacionDerecha(nodo.getDerecha()))
+		return self.RotacionDerecha(nodo)
+
 	def imprimir(self,nodo):
-		nodoaux=nodo
-		print "Raiz-"+str(nodoaux.getValor())
-		nodoaux = nodoaux.getDerecha()
+		#Creamos el Archivo
+		self.f=open("C:\graficas\AVL.txt","w")
+		#Escribimos en el archivo
+		#----------------- Propiedades de la Grafica-------------------------------
+		self.f.write("digraph Matriz{ bgcolor=gray \n")
+		self.f.write("node [fontcolor=\"white\", height=0.5, color=\"white\"]\n")
+		self.f.write("[shape=circle, style=filled, color=blue]")
+		self.f.write("rankdir=UD \n")
+		self.f.write("edge  [color=\"white\", dir=fordware]\n")
+		#----------------- Fin Propiedades de la Grafica-------------------------------
+		if nodo.getDerecha()!=None or nodo.getIzquierda()!=None:
+
+			print "Raiz -"+str(nodo.getValor())+"- Raiz //// Nivel: "+ str(self.nivel)
+			#Establecemos el nivel 1 
+			self.nivel=1
+			#Imprimimos primero los hijos izquierdos
+			self.imprimirIzquierda(nodo)
+			#Establecemos el nivel 1 
+			self.nivel=1
+			#Luego imprimimos los hijos derechos
+			self.imprimirDerecho(nodo)
+		else:
+			self.f.write(str(nodo.getValor()))
+
+		self.f.write("\n}")
+		self.nivel=0
+
+		subprocess.Popen("dot -Tpng C:\graficas\AVL.txt -o C:\graficas\AVL.png")
+		
+	def imprimirDerecho(self,derecho):
+
+		nodoaux = derecho.getDerecha()
+
+		iz = False
+
+		aux2=nodoaux
+
+		first=True
+
 		while nodoaux!=None:
-			print "Derecho-"+str(nodoaux.getValor())
+
+			print "Derecho -"+str(nodoaux.getValor())+"- Derecho //// Nivel: "+ str(self.nivel)
+
+			if first==True:
+
+				self.f.write(str(derecho.getValor())+"->"+str(nodoaux.getValor())+";\n")
+
+				first=False
+
+			else:
+				self.f.write(str(aux2.getValor())+"->"+str(nodoaux.getValor())+";\n")
+
+
+			
+			if nodoaux.getIzquierda()!=None:
+
+				self.nivel=self.nivel+1
+
+				aux = self.nivel
+
+				self.imprimirIzquierda(nodoaux)
+
+				iz=True
+
 			nodoaux=nodoaux.getDerecha()
 
-		nodoaux = nodo.getIzquierda()
+			if iz ==False:
+
+				self.nivel=self.nivel+1
+
+			else:
+
+				self.nivel=aux
+
+				iz=False
+
+	def imprimirIzquierda(self,izquierda):
+
+		nodoaux = izquierda.getIzquierda()
+
+		der=False
+
+		aux2=nodoaux
+
+		first=True
+
 		while nodoaux!=None:
 
-			print "Izquierda-"+str(nodoaux.getValor())
+			print "Izquierdo -"+str(nodoaux.getValor())+"- Izquierdo //// Nivel: "+ str(self.nivel)
+
+			if first==True:
+
+				self.f.write(str(izquierda.getValor())+"->"+str(nodoaux.getValor())+";\n")
+
+				first=False
+
+			else:
+
+				self.f.write(str(aux2.getValor())+"->"+str(nodoaux.getValor())+";\n")
+
+
+			if aux2.getDerecha()!=None and nodoaux.getIzquierda()==None:
+
+				aux = self.nivel
+
+				self.imprimirDerecho(aux2)
+
+			
 			nodoaux=nodoaux.getIzquierda()
+
+
+			if der ==False:
+
+				self.nivel=self.nivel+1
+			else:
+
+				self.nivel=aux
+
+				der=False
 
 	def imprimirarbol(self):
 		self.imprimir(self.root)
