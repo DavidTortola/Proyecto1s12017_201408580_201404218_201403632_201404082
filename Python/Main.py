@@ -23,5 +23,6 @@ usuario.setArbol(arbol)
 
 
 
-matriz1.agregar("aaa","empresa1",usuario.getUsuario())
+matriz1.agregar("aaa","empresa1",usuario)
+
 

@@ -3,6 +3,8 @@ class Usuario(object):
 		self.Nombre=None
 		self.Usuario=None
 		self.Contrasena=None
+		self.x=None
+		self.y=None
 		self.Arbol=None
 		
 
@@ -14,6 +16,10 @@ class Usuario(object):
 		self.Contrasena=contrasena
 	def setArbol(self,arbol):
 		self.Arbol=arbol
+	def setX(self,x):
+		self.x=x
+	def setY(self,y):
+		self.y=y
 
 
 	def getNombre(self):
@@ -24,4 +30,8 @@ class Usuario(object):
 		return self.Contrasena
 	def getArbol(self):
 		return self.Arbol
+	def getX(self):
+		return self.x
+	def getY(self):
+		return self.y
 
