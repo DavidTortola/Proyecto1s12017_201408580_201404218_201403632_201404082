@@ -35,7 +35,6 @@ class AVL(object):
 		self.f = val
 
 
-
 	#Acciones.
 	#---------
 
@@ -100,6 +99,7 @@ class AVL(object):
 		#Retornamos el valor que va tener la nueva raiz 
 		return raiz
 
+	#Metodo que compara dos entradas, si se usan letras compara el ASCII.
 	def comparar(self,v1,v2):
 		resultado= 0
 		if v1<v2 :
@@ -110,12 +110,14 @@ class AVL(object):
 			resultado = 0 
 		return resultado
 
+	#Obtiene la altura de un nodo.
 	def altura(self,nodo):
 		if nodo==None:
 			return -1
 		else:
 			return nodo.altura
 
+	#Devuelve el valor que es mayor, si se usan letras compara el ASCII.
 	def MAX(self,v1,v2):
 		if v1>v2:
 			return v1
@@ -158,11 +160,12 @@ class AVL(object):
 		nodo.setDerecha(self.RotacionIzquierda(nodo.getDerecha()))
 		return self.RotacionDerecha(nodo)
 
+	#Grafica el arbol
 	def impreArbol(self, nodo, padre):
 		if nodo != None:
 			if padre == None:
 				#Creamos el Archivo
-				self.f=open("C:\graficas\AVL.txt","w")
+				self.f=open("Graficas\AVL.txt","w")
 				#Escribimos en el archivo
 				#----------------- Propiedades de la Grafica-------------------------------
 				self.f.write("digraph Matriz{ bgcolor=gray \n")
@@ -175,7 +178,7 @@ class AVL(object):
 				self.impreArbol(nodo.getDerecha(), nodo)
 				self.f.write("}")
 				self.f.close()
-				subprocess.Popen("dot -Tpng C:\graficas\AVL.txt -o C:\graficas\AVL.png")
+				subprocess.Popen("dot -Tpng Graficas\AVL.txt -o Graficas\AVL.png")
 			else:
 				self.f.write(str(padre.getValor()) +"->" +str(nodo.getValor()) +";\n")
 				self.impreArbol(nodo.getIzquierda(), nodo)
