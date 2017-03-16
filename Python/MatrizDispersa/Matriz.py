@@ -7,6 +7,7 @@ import ListaDobleH
 LDH=ListaDobleH
 import NodoMatriz
 nm=NodoMatriz
+import subprocess
 #------------------------------------------------------------------------------------
 
 class Matriz(object):
@@ -15,6 +16,7 @@ class Matriz(object):
 		self.ListaHorizontal = None
 		self.ListaUsuarios= None
 		self.tamano = 0
+
 	#Metodo para insertar
 	def agregar(self,departamento,empresa,valor):
 		if self.tamano ==0:
@@ -252,3 +254,274 @@ class Matriz(object):
 			else:
 				NodoAux = NodoAux.getAbajo()
 		return False
+
+	def Graficar(self):
+		#Creamos un archivo con nombre matriz
+		f=open("C:\graficas\Matriz.txt","w")
+		#Escribimos sobre el archivo el inicio de sentencia 
+		f.write("digraph Matriz{ bgcolor=gray \n")
+		f.write("node [fontcolor=\"white\", height=0.5, color=\"white\"]\n")
+		f.write("[shape=tripleoctagon, style=filled, color=blue]")
+		f.write("rankdir=LR \n")
+		f.write("edge  [color=\"black\", dir=fordware]\n")
+		#instanciamos derecha como primer nodo de la cabecera horizontal
+
+		derecha = self.ListaHorizontal.getInicio()
+		Actual = derecha
+		contador=1
+		#Agregamos el apuntador principal
+		f.write("inicial[style =\"filled\"; label=\"inicial\";pos= \"0,0!\"] \n")
+
+		'''--------------------------------Obtener Horizontales ----------------------------'''
+		while derecha!=None:
+			f.write("\""+Actual.getValor()+"\""+"[style =\"filled\"; label=\""+Actual.getValor()+"\";pos= \""+str(contador)+",0!\"]\n")
+			contador=contador+1
+
+			derecha=derecha.getDerecha()
+			Actual=derecha
+
+		'''--------------------------------Obtener Verticales ----------------------------'''
+		contador= 1
+		abajo = self.ListaVertical.getInicio()
+		Actual=abajo
+
+		while abajo!= None:
+			f.write(Actual.getValor()+"[style =\"filled\"; label="+Actual.getValor()+";pos= \"0,"+str(contador)+"!\"]\n")
+			contador=contador+1
+
+			abajo=abajo.getAbajo()
+			Actual=abajo
+
+		'''--------------------------------Obtener Valores ----------------------------'''
+
+		derecha= self.ListaHorizontal.getInicio()
+		Actual=derecha
+
+		while derecha!=None:
+			abajo=self.ListaVertical.getInicio()
+			while abajo!= None:
+
+				if Actual.getAbajo()!=None:
+					Actual=Actual.getAbajo()
+					user = Actual.getValor().getPrimero().getValor()
+					f.write(user.getUsuario()+"[shape=doubleoctagon,style =\"filled\"; label="+user.getUsuario()+";pos= \""+str(self.posX(Actual.getX()))+","+str(self.posY(Actual.getY()))+"!\"]\n")
+					self.imprimirPrimeros(Actual.getValor(),f,Actual.getY(),Actual.getX())
+				
+				abajo=abajo.getAbajo()
+			derecha=derecha.getDerecha()
+			Actual=derecha
+		'''--------------------------------Enlazar Horizontal -> ----------------------------'''
+		derecha=self.ListaHorizontal.getInicio()
+		abajo = self.ListaVertical.getInicio()
+		f.write("\n inicial->"+"\""+derecha.getValor()+"\""+"->inicial->"+abajo.getValor()+"->inicial;\n")
+		first=True
+		Actual=derecha
+		while derecha!=None:
+
+			if first==True:
+				f.write(str("\""+Actual.getValor())+"\"")
+				first=False
+			else:
+				f.write("->"+"\""+Actual.getValor()+"\"")
+
+			contador=contador+1
+			derecha=derecha.getDerecha()
+			Actual=derecha
+		f.write(";")
+
+		'''--------------------------------Enlazar Horizontal <- ----------------------------'''
+		izquierda=self.ListaHorizontal.getFin()
+
+		last=True
+		Actual=izquierda
+
+		while izquierda!=None:
+			
+			if last==True:
+				f.write(str("\""+Actual.getValor())+"\"")
+				last=False
+				
+			else:
+				f.write("->"+"\""+Actual.getValor()+"\"")
+
+			izquierda=izquierda.getIzquierda()
+			Actual=izquierda
+
+		f.write(";\n")
+
+		'''--------------------------------Enlazar Vertical abajo ----------------------------'''
+		first=True
+		Actual=abajo
+		while abajo!=None:
+			if first==True:
+				f.write(str(Actual.getValor()))
+				first=False
+			else:
+				f.write("->"+Actual.getValor())
+			abajo=abajo.getAbajo()
+			Actual=abajo
+		f.write(";\n")
+
+		'''--------------------------------Enlazar Vertical arriba ----------------------------'''
+
+		last=True
+		arriba = self.ListaVertical.getFin()
+		Actual=arriba
+		while arriba!=None:
+			if last == True:
+				f.write(str(Actual.getValor()))
+				last=False
+			else:
+				f.write("->"+Actual.getValor())
+			arriba=arriba.getArriba()
+			Actual=arriba
+
+		f.write(";\n")
+
+		'''--------------------------------Enlazar Valores hacia derecha----------------------------'''
+
+		#instanciamos para estar en la primera posicion de los dominios 
+		derecha=self.ListaHorizontal.getInicio()
+		#nodo auxiliar el cual recorrera de derecha hacia abajo
+		Actual=derecha
+		while derecha!= None:
+			#instanciamos el primero nodo de letras 
+			abajo= self.ListaVertical.getInicio()
+			#escribimos en el archivo el primer valor
+			f.write("\""+derecha.getValor()+"\"")
+
+			while abajo!=None:
+				#ponemos una condicion si actual diferente de nulo recorrera hacia abajo 
+				if Actual.getAbajo()!=None:
+					#derecha, luego hacia abajo
+					Actual=Actual.getAbajo()
+					#enlazar el valor en el archivo del valor actual con el de abajo 
+					f.write("->"+Actual.getValor().getPrimero().getValor().getUsuario())
+				#cambiar de nodo hacia el siguiente 
+				abajo=abajo.getAbajo()
+			#separacion de nombres con ;
+			f.write(";\n")
+			#recorremos la posicion del nodo hacia la derecha 
+			derecha=derecha.getDerecha()
+			#el nodo auxiliar es igual al de la siguiente posicion 
+			Actual=derecha
+
+		f.write("\n\n\n")
+
+		'''--------------------------------Enlazar Valores hacia abajo----------------------------'''
+		
+		abajo=self.ListaVertical.getInicio()
+		Actual=abajo
+		while abajo!=None:
+			derecha=self.ListaHorizontal.getInicio()
+			f.write(abajo.getValor())
+			while derecha!=None:
+				if Actual.getDerecha()!=None:
+					Actual=Actual.getDerecha()
+					f.write("->"+Actual.getValor().getPrimero().getValor().getUsuario())
+				derecha=derecha.getDerecha()
+			f.write(";\n")
+			abajo=abajo.getAbajo()
+			Actual=abajo
+
+
+		f.write("\n\n\n")
+		
+		derecha=self.ListaHorizontal.getInicio()
+		Actual=derecha
+
+		while derecha!=None:
+
+			while Actual.getAbajo()!=None:
+				Actual=Actual.getAbajo()
+			while Actual.getArriba()!=None:
+				f.write(Actual.getValor().getPrimero().getValor().getUsuario()+"->")
+				Actual=Actual.getArriba()
+			
+			f.write( "\""+derecha.getValor()+"\"")
+			f.write(";\n")
+			derecha=derecha.getDerecha()
+			Actual=derecha
+
+		abajo=self.ListaVertical.getInicio()
+		Actual=abajo
+
+		while abajo!=None:
+			
+
+			while Actual.getDerecha()!=None:
+				Actual=Actual.getDerecha()
+			while Actual.getIzquierda()!=None:
+				f.write(Actual.getValor().getPrimero().getValor().getUsuario()+"->")
+				Actual=Actual.getIzquierda()
+			
+			f.write(abajo.getValor())
+			f.write(";\n")
+			abajo=abajo.getAbajo()
+			Actual=abajo
+
+
+
+
+
+
+		f.write("}")
+		subprocess.Popen("fdp -Tpng C:\graficas\Matriz.txt -o C:\graficas\Matriz.png")
+	
+
+	def posX(self,nodo):
+		x=1
+		derecha=self.ListaHorizontal.getInicio()
+
+		while derecha!=None:
+			if derecha.getValor()==nodo:
+				return x 
+			else:
+				x=x+1
+				derecha=derecha.getDerecha()
+	#Metodo para obtener el valor en y en la matriz
+	def posY(self,nodo):
+		y=1
+		abajo= self.ListaVertical.getInicio()
+		while abajo!=None:
+			if abajo.getValor()==nodo:
+				return y
+			else:
+				y=y+1
+				abajo=abajo.getAbajo()
+
+	#Metodo para graficar los nombres de la lista del nodo digase el hijo 
+	def imprimirPrimeros(self,lista,f,Y,x):
+		#Creamos un archivo con nombre matriz
+		f=f
+		cont2=self.posX(x)
+		contador=self.posY(Y)
+		if lista.getTamano()>1:
+			auxiliar= lista.getPrimero()
+			while auxiliar.getSiguiente()!=None :
+				contador=contador+0.05
+				cont2=cont2+0.05
+				auxiliar=auxiliar.getSiguiente()
+				aux=auxiliar
+				f.write("\""+auxiliar.getValor().getUsuario()+"\""+"[shape=octagon, style =\"filled\"; label=\""+auxiliar.getValor().getUsuario()+"\";pos= \""+str(cont2)+","+str(contador)+"!\"]\n")
+				
+				#print auxiliar.getValor()
+			f.write(";\n")
+
+			auxiliar= lista.getPrimero()
+			f.write(auxiliar.getValor().getUsuario())
+			while auxiliar.getSiguiente()!=None :
+				auxiliar=auxiliar.getSiguiente()
+				aux=auxiliar
+
+				f.write("->"+auxiliar.getValor().getUsuario())
+				#print auxiliar.getValor()
+			f.write(";\n")
+			f.write(lista.getUltimo().getValor().getUsuario()+"")
+			auxiliar= lista.getUltimo()
+
+			while auxiliar.getAnterior()!=None :
+				auxiliar=auxiliar.getAnterior()
+				f.write("->"+auxiliar.getValor().getUsuario())
+				#print auxiliar.getValor()
+			f.write(";\n")

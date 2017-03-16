@@ -26,14 +26,14 @@ class Nombres(object):
 			
 		else:
 
-			 letraInsertar = insertar[:1]
+			 letraInsertar = insertar.getUsuario()[:1]
 			 letraInsertar= ord(letraInsertar)
 
 			 agregado=False	
 			 Auxiliar= self.primero
 
 			 while Auxiliar!= None:
-			 	letracomparar = Auxiliar.getValor()[:1]
+			 	letracomparar = Auxiliar.getValor().getUsuario()[:1]
 			 	letracomparar=ord(letracomparar)
 
 			 	if letraInsertar>letracomparar:
