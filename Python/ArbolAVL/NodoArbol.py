@@ -1,39 +1,31 @@
-#Nodo con parametros para estructuras tipo arbol.
-
 class NodoArbol(object):
+	def __init__(self):
+		self.raiz=None
+		self.derecha=None
+		self.izquierda=None
+		self.valor=None
+		self.altura=0
 	
-	#Metodos constructor.
-	#--------------------
-	def __init__(self, valor = None, izquierda = None, dererecha = None, fe = 0):
-		self.valor = valor
-		self.izquierda = izquierda
-		self.derecha = derecha
-		self.fe = fe
-
-
-	#Metodos sets y gets.
-	#--------------------
+	def setValor(self, valor):
+		self.valor=valor
+	def setDerecha(self,derecha):
+		self.derecha=derecha
+	def setIzquierda(self,izquierda):
+		self.izquierda=izquierda
+	def setRaiz(self,raiz):
+		self.raiz=raiz
+	def setAltura(self,altura):
+		self.altura=altura
 
 	def getValor(self):
 		return self.valor
-
-	def setValor(self, val):
-		self.valor = val
-
-	def getIzquierda(self):
-		return self.izquierda
-
-	def setIzquierda(self, val):
-		self.izquierda = val
-
 	def getDerecha(self):
 		return self.derecha
+	def getIzquierda(self):
+		return self.izquierda
+	def getRaiz(self):
+		return self.raiz
+	def getAltura(self):
+		return self.altura
 
-	def setDerecha(self, val):
-		self.derecha = val
 
-	def getFe(self):
-		return self.fe
-
-	def setFe(self, val):
-		self.fe = val
