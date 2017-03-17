@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Inicio de Sesion</title>
+        <!-- Meta tag Keywords -->
+
+        <!-- Meta tag Keywords -->
+
+        <!-- css files -->
+        <link rel="stylesheet" href="css/style.css" type="text/css" media="all" /> <!-- Style-CSS --> 
+        <link rel="stylesheet" href="css/font-awesome.css"> <!-- Font-Awesome-Icons-CSS -->
+        <!-- //css files -->
+
+        <!-- online-fonts -->
+        <link href="//fonts.googleapis.com/css?family=Josefin+Sans:100,100i,300,300i,400,400i,600,600i,700,700i&amp;subset=latin-ext" rel="stylesheet">
+        <!-- //online-fonts -->
+
+    </head>
+
+    <body>
+
+        <!--header-->
+        <div class="header-w3l">
+            <h1>Renta de Activos</h1>
+        </div>
+        <!--//header-->
+
+        <!--main-->
+        <div class="main-content-agile">
+            <div class="sub-main-w3">	
+                <div class="wthree-pro">
+                    <img src="images/pro.jpg" alt="image">
+                    <h2>Inicio de Sesion</h2>
+                </div>
+                <form method="POST">
+                    <input placeholder="Usuario" name="Name" class="user" type="text" required="" > 
+                    <input  placeholder="Password" name="Password" class="pass" type="password" required="">
+                    <input placeholder="Empresa" name="empresa" class="emp" type="text" required="">
+                    <input placeholder="Departamento" name="departamento" class="dep" type="text" required="">
+                    <div class="sub-w3l">
+                        <div class="right-w3l">
+                            <input type="submit" value="Login">
+                            <%
+                                try{
+                                    if(request.getParameter("nombre")!=null){
+                                        Datos d=new Datos();
+                                        d.setUsuario(request.getParameter("Name"));
+                                        d.setContraseña(request.getParameter("Password"));
+                                        d.setEmpresa(request.getParameter("empresa"));
+                                        d.setDepartamento(request.getParameter("departamento"));
+                                        out.println("<br>Tu Usuario es: "+d.getUsuario() );
+                                        out.println("<br>Tu Contraseña es: "+d.getContraseña());
+                                        out.println("<br>Tu Empresa es: "+d.getEmpreas());
+                                        out.println("<br>Tu Departamento es: "+d.getDepartamento());
+                                     }
+                                 }
+                                catch(Exception ex){
+                                out.println("");
+                                 }
+                            %>
+                            <div class="top-big-link">
+                                <a class="btn btn-link-3" href="Registro.jsp">Registrase</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
+
+
