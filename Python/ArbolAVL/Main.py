@@ -1,4 +1,4 @@
-from parent import Arbol
+import Arbol
 ar=Arbol
 arbol=ar.AVL()
 

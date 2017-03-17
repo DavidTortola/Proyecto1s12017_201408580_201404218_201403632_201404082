@@ -257,7 +257,7 @@ class Matriz(object):
 
 	def Graficar(self):
 		#Creamos un archivo con nombre matriz
-		f=open("C:\graficas\Matriz.txt","w")
+		f=open("Graficas\Matriz.txt","w")
 		#Escribimos sobre el archivo el inicio de sentencia 
 		f.write("digraph Matriz{ bgcolor=gray \n")
 		f.write("node [fontcolor=\"white\", height=0.5, color=\"white\"]\n")
@@ -448,7 +448,6 @@ class Matriz(object):
 
 		while abajo!=None:
 			
-
 			while Actual.getDerecha()!=None:
 				Actual=Actual.getDerecha()
 			while Actual.getIzquierda()!=None:
@@ -466,7 +465,7 @@ class Matriz(object):
 
 
 		f.write("}")
-		subprocess.Popen("fdp -Tpng C:\graficas\Matriz.txt -o C:\graficas\Matriz.png")
+		subprocess.Popen("fdp -Tpng Graficas\Matriz.txt -o Graficas\Matriz.png")
 	
 
 	def posX(self,nodo):
@@ -525,3 +524,28 @@ class Matriz(object):
 				f.write("->"+auxiliar.getValor().getUsuario())
 				#print auxiliar.getValor()
 			f.write(";\n")
+
+	def buscar(self,nombreusuario):
+		derecha = self.ListaHorizontal.getInicio()
+		Actual=derecha
+
+		while derecha!= None:
+			abajo = self.ListaVertical.getInicio()
+
+			while abajo != None:
+				if Actual.getAbajo()!= None:
+
+					Actual = Actual.getAbajo()
+					Auxiliar=Actual.getValor().getPrimero()
+					while Auxiliar!=None:
+						if nombreusuario== Auxiliar.getValor().getUsuario():
+							print "Concordo"
+							return Auxiliar.getValor()
+						Auxiliar=Auxiliar.getSiguiente()
+
+
+				abajo = abajo.getAbajo()
+
+			derecha=derecha.getDerecha()
+			Actual=derecha
+		return None

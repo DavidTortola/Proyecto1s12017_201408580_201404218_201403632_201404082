@@ -47,6 +47,14 @@ usuario3.setArbol(arbol)
 
 matriz1.agregar("bbb","empresa3",usuario3)
 
+user=matriz1.buscar("fjakls")
+if user != None:
+
+	print "Nombre: "+user.getNombre()+" \nUsuario: "+user.getUsuario()+" \nContrasena: "+user.getContrasena()
+	arbol2 = user.getArbol()
+	arbol2.impreArbol(arbol2.getRoot(), None)
+else:
+	print "No se encontro ninguno"
 matriz1.Graficar()
 
 
