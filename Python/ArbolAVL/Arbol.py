@@ -303,7 +303,7 @@ class AVL(object):
 
 	def recorrerIzquierda(self, nodo):
 		if nodo.getIzquierda()!=None:
-			return recorrerIzquierda(nodo.getIzquierda())
+			return self.recorrerIzquierda(nodo.getIzquierda())
 
 		return nodo 
 

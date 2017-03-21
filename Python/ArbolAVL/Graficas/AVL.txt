@@ -3,10 +3,9 @@ node [fontcolor="white", height=0.5, color="white"]
 [shape=circle, style=filled, color=blue]rankdir=UD 
 edge  [color="white", dir=fordware]
 4;
-4->2;
-2->1;
+4->3;
+3->1;
 1->0;
-2->3;
 4->6;
 6->5;
 6->7;

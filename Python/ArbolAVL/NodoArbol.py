@@ -12,6 +12,8 @@ class NodoArbol(object):
 		self.valor=valor
 		self.altura=altura
 		self.papa = papa
+
+
 	#Metodos sets y gets.
 	#--------------------
 
@@ -38,5 +40,28 @@ class NodoArbol(object):
 		return self.izquierda
 	def getRaiz(self):
 		return self.raiz
+
 	def getAltura(self):
+		val1 = 0
+		val2 = 0
+		if self.izquierda != None:
+			val1 = self.izquierda.getAltura()
+		if self.derecha != None:
+			val2 = self.derecha.getAltura()
+
+		if val1 != None and val2 != None:
+			if val1 < val2:
+				self.altura = val2+1
+			elif val1 > val2:
+				self.altura = val1+1
+			else:
+				self.altura = val1+1
+		else:
+			if val1 != None:
+				self.altura = val1+1
+			elif val2 != None:
+				self.altura = val2+1
+			else:
+				print "  v"
+				self.altura = 0
 		return self.altura
