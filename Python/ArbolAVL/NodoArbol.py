@@ -5,13 +5,13 @@ class NodoArbol(object):
 	#Metodos construcor.
 	#-------------------
 
-	def __init__(self, raiz = None, derecha = None, izquierda = None, valor = None, altura = 0):
+	def __init__(self, raiz = None, derecha = None, izquierda = None, valor = None, altura = 0, papa= None):
 		self.raiz=raiz
 		self.derecha=derecha
 		self.izquierda=izquierda
 		self.valor=valor
 		self.altura=altura
-	
+		self.papa = papa
 	#Metodos sets y gets.
 	#--------------------
 
@@ -25,7 +25,11 @@ class NodoArbol(object):
 		self.raiz=raiz
 	def setAltura(self,altura):
 		self.altura=altura
+	def setPapa(self,papa):
+		self.papa= papa
 
+	def getPapa(self):
+		return self.papa
 	def getValor(self):
 		return self.valor
 	def getDerecha(self):
