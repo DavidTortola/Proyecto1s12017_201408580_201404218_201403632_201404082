@@ -1,4 +1,3 @@
-
 from MatrizDispersa import Matriz
 mm = Matriz
 matriz1 = mm.Matriz()
@@ -9,17 +8,68 @@ arbol=AVL.AVL()
 
 from MatrizDispersa import Usuario
 us = Usuario
-usuario=us.Usuario()
 
-usuario.setNombre("Andree")
-usuario.setUsuario("AndreeAvalos")
-usuario.setContrasena("1234")
+from flask import Flask, request, Response
+app = Flask("Proyecto1")
 
-arbol.insertar("ab")
-arbol.insertar("ac")
-arbol.insertar("ad")
 
-usuario.setArbol(arbol)
+
+
+
+
+@app.route('/Matriz', methods = ['POST']) 
+def usuario2():
+
+	if str(request.form['tipo'])=="buscar":
+		
+		aux = matriz1.buscar(str(request.form['informacion']))
+
+		return "Nombre: "+aux.getNombre()+" Usuario: "+aux.getUsuario()+" Contrasena: "+aux.getContrasena()+ " Empresa: "+ aux.getX()+ " Departamento: "+aux.getY()
+
+	elif str(request.form['tipo'])=="registrar":
+
+		arreglo = str(request.form['informacion']).split("$")
+		usuario=us.Usuario()
+		usuario.setUsuario(arreglo[0])
+		usuario.setContrasena(arreglo[1])
+		usuario.setNombre(arreglo[2])
+		usuario.setX(arreglo[3])
+		usuario.setY(arreglo[4])
+
+		matriz1.agregar(usuario.getY(),usuario.getX(),usuario)
+
+		matriz1.Graficar()
+
+		return "Agregado"
+
+	elif str(request.form['tipo'])=="registrarActivo":
+
+		arreglo = str(request.form['informacion']).split("$")
+		usuario=us.Usuario()
+		usuario.setUsuario(arreglo[0])
+		usuario.setContrasena(arreglo[1])
+		usuario.setNombre(arreglo[2])
+		usuario.setX(arreglo[3])
+		usuario.setY(arreglo[4])
+
+		matriz1.agregar(usuario.getY(),usuario.getX(),usuario)
+
+		matriz1.Graficar()
+
+		return "Agregado"
+
+
+
+
+
+
+if __name__ == "__main__":
+  app.run(debug=True, host='0.0.0.0')
+
+
+'''
+
+
 
 
 usuario2=us.Usuario()
@@ -56,5 +106,5 @@ if user != None:
 else:
 	print "No se encontro ninguno"
 matriz1.Graficar()
-
+'''
 

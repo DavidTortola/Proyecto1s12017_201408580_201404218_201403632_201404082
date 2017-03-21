@@ -5,6 +5,7 @@
  */
 package WebService;
 
+import Logica.Flask;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -30,8 +31,18 @@ public class Principal {
     @WebMethod(operationName = "Prueba")
     public String Prueba(@WebParam(name = "parameter") String parameter) {
         //TODO write your implementation code here:       
-        return (new WebService1().getWebService1Soap()).prueba(parameter);
+        return (new Flask().Login(parameter, parameter, parameter, parameter)).toString();
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "Registrar")
+    public String Registrar(@WebParam(name = "usuario") String usuario, @WebParam(name = "pass") String pass, @WebParam(name = "nombre") String nombre, @WebParam(name = "departamento") String departamento, @WebParam(name = "empresa") String empresa) {
+        //TODO write your implementation code here:
+        return (new Flask().Registrar(usuario, pass, nombre, empresa, departamento));
+    }
+    
     
     
 }
