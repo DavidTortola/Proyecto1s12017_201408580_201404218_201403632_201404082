@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/C:/Users/Andree/Desktop/Ingenieria/Sistemas/EDD/Proyecto1s12017_201408580_201404218_201403632_201404082/Interfaz%20Web%20(JSP)/InicioSesion/src/conf/xml-resources/web-services/WebC/wsdl/localhost_27273/WebService1.asmx.wsdl" uri="src/conf/xml-resources/web-service-references/WebService1.asmx/wsdl/WebService1.asmx.wsdl"/>
+    <system systemId="http://localhost:27273/WebService1.asmx?WSLD" uri="src/conf/xml-resources/web-service-references/WebService1/wsdl/localhost_27273/WebService1.asmx.wsld"/>
+    <system systemId="http://localhost:27273/WebService1.asmx?WSDL" uri="src/conf/xml-resources/web-service-references/WebService1/wsdl/localhost_27273/WebService1.asmx.wsdl"/>
+</catalog>
