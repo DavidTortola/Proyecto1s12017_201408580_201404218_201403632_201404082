@@ -32,4 +32,6 @@ public class Principal {
         //TODO write your implementation code here:       
         return (new WebService1().getWebService1Soap()).prueba(parameter);
     }
+    
+    
 }
