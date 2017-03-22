@@ -37,8 +37,8 @@ public class Flask {
         return sendText(arreglo,"registrar");
 
     }
-    public String RegistrarActivo(String usuario,String id,String producto,String Descripcion){
-    String arreglo = usuario+"$"+id+"$"+producto+"$"+Descripcion;
+    public String RegistrarActivo(String usuario,String producto,String Descripcion,String empresa,String departamento){
+    String arreglo = usuario+"$"+producto+"$"+Descripcion+"$"+empresa+"$"+departamento;
 
     return sendText(arreglo,"registrarActivo");
     }

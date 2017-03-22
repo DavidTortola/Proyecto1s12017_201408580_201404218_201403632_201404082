@@ -4,7 +4,14 @@ matriz1 = mm.Matriz()
 
 from ArbolAVL import Arbol
 AVL= Arbol
-arbol=AVL.AVL()
+
+
+from ArbolAVL import Activo
+ac= Activo
+
+from MatrizDispersa import GeneradorID
+gid = GeneradorID
+
 
 from MatrizDispersa import Usuario
 us = Usuario
@@ -37,6 +44,8 @@ def usuario2():
 		usuario.setNombre(arreglo[2])
 		usuario.setX(arreglo[3])
 		usuario.setY(arreglo[4])
+		arbol=AVL.AVL()
+		usuario.setArbol(arbol)
 
 		matriz1.agregar(usuario.getY(),usuario.getX(),usuario)
 
@@ -47,16 +56,36 @@ def usuario2():
 	elif str(request.form['tipo'])=="registrarActivo":
 
 		arreglo = str(request.form['informacion']).split("$")
-		usuario=us.Usuario()
-		usuario.setUsuario(arreglo[0])
-		usuario.setContrasena(arreglo[1])
-		usuario.setNombre(arreglo[2])
-		usuario.setX(arreglo[3])
-		usuario.setY(arreglo[4])
 
-		matriz1.agregar(usuario.getY(),usuario.getX(),usuario)
+		generadorid = gid.GeneradorID()
 
-		matriz1.Graficar()
+		activo = ac.Activo()
+
+		activo.setId(generadorid.obtenerID(15))
+
+		activo.setUsuario(arreglo[0])
+
+		activo.setNombre(arreglo[1])
+
+		activo.setDescripcion(arreglo[2])
+
+		usuario = matriz1.buscar(arreglo[0],arreglo[3],arreglo[4])
+
+		arbol= usuario.getArbol()
+
+		arbol.insertar(activo)
+
+		usuario.setArbol(arbol)
+
+		activo.setUsuario(usuario)
+
+		
+
+
+
+
+
+
 
 		return "Agregado"
 
