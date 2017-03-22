@@ -21,8 +21,10 @@ app = Flask("Proyecto1")
 def usuario2():
 
 	if str(request.form['tipo'])=="buscar":
-		
-		aux = matriz1.buscar(str(request.form['informacion']))
+		arreglo = str(request.form['informacion']).split("$")
+
+		aux = matriz1.buscar(arreglo[0],arreglo[3],arreglo[2])
+
 
 		return "Nombre: "+aux.getNombre()+" Usuario: "+aux.getUsuario()+" Contrasena: "+aux.getContrasena()+ " Empresa: "+ aux.getX()+ " Departamento: "+aux.getY()
 

@@ -1,12 +1,21 @@
-from parent/ArbolAVL import Arbol.py
-ar=Arbol
-arbol=ar.AVL()
+import Matriz 
+ma = Matriz
+matriz = ma.Matriz()
+import Usuario
+us = Usuario
 
-arbol.insertar("ab")
-arbol.insertar("ac")
-arbol.insertar("ad")
-arbol.insertar("aa")
-arbol.insertar("af")
-arbol.insertar("ae")
+usuario = us.Usuario()
 
-arbol.impreArbol(arbol.getRoot(), None)
+usuario.setNombre("Andree")
+usuario.setContrasena(1234)
+usuario.setUsuario("AndreeAvalos")
+usuario.setX("MARIONO")
+usuario.setY("Ventas")
+
+matriz.agregar(usuario.getY(),usuario.getX(),usuario)
+
+matriz.agregar(usuario.getY(),usuario.getX(),usuario)
+
+matriz.Graficar()
+
+aux = matriz.buscar(usuario.getUsuario(),usuario.getX(),usuario.getY())

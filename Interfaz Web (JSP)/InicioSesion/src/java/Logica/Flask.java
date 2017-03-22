@@ -13,7 +13,6 @@ import com.squareup.okhttp.Response;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.logging.Level;
 
 /**
  *
@@ -29,8 +28,8 @@ public class Flask {
 
     public String Login(String user, String pass, String empresa, String departamento) {
         //Metodo para buscar en la matriz
-
-        return sendText(user, "buscar");
+        String arreglo = user+"$"+pass+"$"+empresa+"$"+departamento;
+        return sendText(arreglo, "buscar");
     }
 
     public String Registrar(String user, String pass,String nombre, String empresa, String departamento) {

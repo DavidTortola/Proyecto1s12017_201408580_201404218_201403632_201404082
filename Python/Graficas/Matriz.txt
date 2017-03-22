@@ -3,22 +3,29 @@ node [fontcolor="white", height=0.5, color="white"]
 [shape=tripleoctagon, style=filled, color=blue]rankdir=LR 
 edge  [color="black", dir=fordware]
 inicial[style ="filled"; label="inicial";pos= "0,0!"] 
-"empresa1"[style ="filled"; label="empresa1";pos= "1,0!"]
-aaa[style ="filled"; label=aaa;pos= "0,1!"]
-AndreeAvalos[shape=doubleoctagon,style ="filled"; label=AndreeAvalos;pos= "1,1!"]
+"Mariano"[style ="filled"; label="Mariano";pos= "1,0!"]
+"Usac"[style ="filled"; label="Usac";pos= "2,0!"]
+Informatica[style ="filled"; label=Informatica;pos= "0,1!"]
+Ventas[style ="filled"; label=Ventas;pos= "0,2!"]
+AndreeAvalos[shape=doubleoctagon,style ="filled"; label=AndreeAvalos;pos= "1,2!"]
+AndreeAvalos[shape=doubleoctagon,style ="filled"; label=AndreeAvalos;pos= "2,1!"]
 
- inicial->"empresa1"->inicial->aaa->inicial;
-"empresa1";"empresa1";
-aaa;
-aaa;
-"empresa1"->AndreeAvalos;
+ inicial->"Mariano"->inicial->Informatica->inicial;
+"Mariano"->"Usac";"Usac"->"Mariano";
+Informatica->Ventas;
+Ventas->Informatica;
+"Mariano"->AndreeAvalos;
+"Usac"->AndreeAvalos;
 
 
 
-aaa->AndreeAvalos;
+Informatica->AndreeAvalos;
+Ventas->AndreeAvalos;
 
 
 
-AndreeAvalos->"empresa1";
-AndreeAvalos->aaa;
+AndreeAvalos->"Mariano";
+AndreeAvalos->"Usac";
+AndreeAvalos->Informatica;
+AndreeAvalos->Ventas;
 }

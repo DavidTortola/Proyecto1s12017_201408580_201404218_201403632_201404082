@@ -525,27 +525,34 @@ class Matriz(object):
 				#print auxiliar.getValor()
 			f.write(";\n")
 
-	def buscar(self,nombreusuario):
+	def buscar(self,nombreusuario,empresa,departamento):
 		derecha = self.ListaHorizontal.getInicio()
 		Actual=derecha
 
 		while derecha!= None:
 			abajo = self.ListaVertical.getInicio()
 
-			while abajo != None:
+			print derecha.getValor() +"-------"+ empresa
+
+			while abajo!= None:
+
 				if Actual.getAbajo()!= None:
+
+					print abajo.getValor() + "------"+ departamento
 
 					Actual = Actual.getAbajo()
 					Auxiliar=Actual.getValor().getPrimero()
 					while Auxiliar!=None:
-						if nombreusuario== Auxiliar.getValor().getUsuario():
+						if nombreusuario== Auxiliar.getValor().getUsuario() and Auxiliar.getValor().getY()==departamento and Auxiliar.getValor().getX() == empresa:
 							print "Concordo"
 							return Auxiliar.getValor()
-						Auxiliar=Auxiliar.getSiguiente()
+						else:
+							Auxiliar=Auxiliar.getSiguiente()
 
 
 				abajo = abajo.getAbajo()
 
 			derecha=derecha.getDerecha()
 			Actual=derecha
+
 		return None
