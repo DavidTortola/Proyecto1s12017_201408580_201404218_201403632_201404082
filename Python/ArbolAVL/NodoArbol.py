@@ -42,26 +42,45 @@ class NodoArbol(object):
 		return self.raiz
 
 	def getAltura(self):
-		val1 = 0
-		val2 = 0
+		return self.altura
+
+	def obtenerAltura(self):
+		val1 = None
+		val2 = None
+		
 		if self.izquierda != None:
-			val1 = self.izquierda.getAltura()
+			val1 = self.izquierda.obtenerAltura()
+		
 		if self.derecha != None:
-			val2 = self.derecha.getAltura()
+			val2 = self.derecha.obtenerAltura()
 
 		if val1 != None and val2 != None:
+
 			if val1 < val2:
-				self.altura = val2+1
+				self.altura = val2 + 1
 			elif val1 > val2:
-				self.altura = val1+1
+				self.altura = val1 + 1
 			else:
-				self.altura = val1+1
+				self.altura = val1 + 1
+		
 		else:
+
 			if val1 != None:
 				self.altura = val1+1
 			elif val2 != None:
 				self.altura = val2+1
 			else:
-				print "  v"
 				self.altura = 0
 		return self.altura
+
+
+	def getFE(self):
+		val1 = 0
+		val2 = 0
+		fe = 0
+		if self.izquierda != None:
+			val1 = self.izquierda.getAltura()
+		if self.derecha != None:
+			val2 = self.derecha.getAltura()
+
+		return (val2-val1)

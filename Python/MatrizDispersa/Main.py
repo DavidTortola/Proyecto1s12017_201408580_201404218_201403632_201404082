@@ -1,12 +1,6 @@
-from parent/ArbolAVL import Arbol.py
-ar=Arbol
-arbol=ar.AVL()
+import GeneradorID
+GI = GeneradorID
 
-arbol.insertar("ab")
-arbol.insertar("ac")
-arbol.insertar("ad")
-arbol.insertar("aa")
-arbol.insertar("af")
-arbol.insertar("ae")
+generador = GI.GeneradorID()
 
-arbol.impreArbol(arbol.getRoot(), None)
+print generador.generarID(15)

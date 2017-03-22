@@ -68,13 +68,13 @@ class AVL(object):
 				if (self.comparar(valor,raiz.getIzquierda().getValor())<0):
 
 					#La raiz va obtener el valor de la rotacion
-					raiz= self.RotacionIzquierda(raiz)
+					raiz = self.RotacionIzquierda(raiz)
 
 				#De lo contrario es una rotacion doble hacia la izquierda
 				else:
 
 					#La raiz va obtener el valor de la rotacion
-					raiz= self.RotacionDobleIzquierda(raiz)
+					raiz = self.RotacionDobleIzquierda(raiz)
 
 
 			#Si el valor de la comparacion es mayor a 0, entonces el valor se va
@@ -151,7 +151,7 @@ class AVL(object):
 		#Establecemos la altura del nodo entrante
 		nodo.setAltura(self.MAX(self.altura(nodo.getIzquierda()),self.altura(nodo.getDerecha()))+1)
 		#Establecemos la altura 
-		nodoaux.setAltura(self.MAX(self.altura(nodoaux.getIzquierda()),nodo.getAltura())+1)
+		nodoaux.setAltura(self.MAX(self.altura(nodoaux.getIzquierda()), nodo.getAltura())+1)
 		#Retornamos el nodo auxiliar para que sea la nueva raiz
 		return nodoaux
 
@@ -204,18 +204,12 @@ class AVL(object):
 
 
 	def eliminar(self,valor):
-
+		#Busco el nodo a eliminar
 	 	nodo = self.buscar(valor,self.root,None)
-	 	self.restarAltura(nodo)
-		self.match=False
-		print nodo.getPapa().getValor()
+		self.match=False #Se renueva la bandera para buscar
+		self.EnlazarPapas(self.root,None)
+		#Se elimina el nodo
 		self.delete(nodo)
-
-	def restarAltura(self, nodo):
-		if nodo != None:
-			nodo.setAltura(nodo.getAltura()-1)
-			self.restarAltura(nodo.getIzquierda())
-			self.restarAltura(nodo.getDerecha())
 
 
 	def delete(self,nodo):
@@ -231,74 +225,124 @@ class AVL(object):
 		else:
 			izquierda = False 
 
-		print derecha
-		print izquierda
 
 		if derecha == False and izquierda == False:
-			print"Caso 1 "
+
 			return self.caso1(nodo)
-		if derecha != True and izquierda ==False:
-			print"Caso 2 "
+		if derecha != False and izquierda ==False:
+
 			return self.caso2(nodo)
 		if derecha == False and izquierda != False:
-			print"Caso 2 "
+
 			return self.caso2(nodo)
 		if derecha!= False and izquierda != False:
-			print"Caso 3 "
+
 			return self.caso3(nodo)
 
-	def caso1(self,nodo):
-		nodoaux= nodo.getPapa()
+	def caso1(self, nodo):
 
-		izquierda = nodoaux.getIzquierda()
-		derecha = nodoaux.getDerecha()
-		if izquierda != None:
-			if izquierda.getValor()== nodo.getValor():
-				nodo.getPapa().setIzquierda(None)
-		if derecha != None:
-			if derecha.getValor()== nodo.getValor():
-				nodo.getPapa().setDerecha(None)
-		
+		if nodo.getPapa() == None:	#Si se va a eliminar la raiz
+			self.root = None
 
+		else:
+			#Se obtiene el papa, se obtienen sus hijos
+			nodoPapa = nodo.getPapa()
+			izquierda = nodoPapa.getIzquierda()
+			derecha = nodoPapa.getDerecha()
+
+			#Se elimina el hijo con el valor que se quiere borrar
+			if izquierda != None:
+				if izquierda.getValor() == nodo.getValor():
+					nodo.getPapa().setIzquierda(None)
+
+
+			if derecha != None:
+				if derecha.getValor() == nodo.getValor():
+					nodo.getPapa().setDerecha(None)
+			self.colocarAlturas(self.root)
 		return False
 
 	def caso2(self,nodo):
 
-		hijoizquierdo = nodo.getPapa().getIzquierda()
-		hijoderecho = nodo.getPapa().getDerecha()
+		if nodo.getPapa()!=None:
+			hijoizquierdo = nodo.getPapa().getIzquierda()
+			hijoderecho = nodo.getPapa().getDerecha()
 
-		if nodo.getIzquierda()!= None:
-			Actual =nodo.getIzquierda()
+			if nodo.getIzquierda() != None:
+				Actual = nodo.getIzquierda()
+			else:
+				Actual = nodo.getDerecha()
+
+			if hijoizquierdo == nodo:
+				nodo.getPapa().setIzquierda(Actual)
+				Actual.setPapa(nodo.getPapa())
+				self.colocarAlturas(self.root)
+				return True
+
+			if hijoderecho == nodo:
+				nodo.getPapa().setDerecha(Actual)
+				Actual.setPapa(nodo.getPapa())
+				self.colocarAlturas(self.root)
+				return True
 		else:
-			Actual= nodo.getDerecha()
 
-
-		if(hijoizquierdo==nodo):
-			nodo.getPapa().setIzquierda(Actual)
-			Actual.setPapa(nodo.getPapa())
-			nodo.setDerecha(None)
-			nodo.setIzquierda(None)
-
-			return True
-
-		if hijoderecho==nodo:
-			nodo.getPapa().setDerecha(Actual)
-			Actual.setPapa(nodo.getPapa())
-			nodo.setDerecha(None)
-			nodo.setIzquierda(None)
-			return True
-
+			der = nodo.getDerecha()
+			iz = nodo.getIzquierda()
+			if der!=None:
+				self.root = der
+				der.setPapa(None)
+			elif iz!=None:
+				self.root = iz
+				iz.setPapa(None)
+			self.colocarAlturas(self.root)
+		self.colocarAlturas(self.root)
 		return False
 
 	def caso3(self, nodo):
 
+		#Obtiene el ultimo a la izquierda
 		ultimoizquierda = self.recorrerIzquierda(nodo.getDerecha())
-		if ultimoizquierda!= None:
-			nodo.setValor(ultimoizquierda.getValor())
-			self.delete(ultimoizquierda)
 
+		if ultimoizquierda == nodo.getDerecha():
+			ultimoizquierda = None
+
+		if ultimoizquierda != None: #Si el nodo derecha tiene hijo izquierdo.
+
+			if nodo.getPapa() == None:
+				self.root = ultimoizquierda
+			else:
+
+				if nodo.getPapa().getDerecha() == nodo:
+					nodo.getPapa().setDerecha(ultimoizquierda)
+				elif nodo.getPapa().getIzquierda() == nodo:
+					nodo.getPapa().setIzquierda(ultimoizquierda)
+
+			ultimoizquierda.getPapa().setIzquierda(None)
+
+			ultimoizquierda.setIzquierda(nodo.getIzquierda())
+			ultimoizquierda.setDerecha(nodo.getDerecha())
+			ultimoizquierda.setPapa(nodo.getPapa())
+
+			nodo.getIzquierda().setPapa(ultimoizquierda)
+			nodo.getDerecha().setPapa(ultimoizquierda)
+
+			self.colocarAlturas(self.root)
 			return True
 
+		else:	#Si el nodo derecha no tiene hijo izquierdo.
+			nodoDerecho = nodo.getDerecha()
+
+			if nodo.getPapa() == None:
+				self.root = nodoDerecho
+			else:
+				if nodo.getPapa().getDerecha() == nodo:
+					nodo.getPapa().setDerecha(nodoDerecho)
+				elif nodo.getPapa().getIzquierda() == nodo:
+					nodo.getPapa().setIzquierda(nodoDerecho)
+
+			nodoDerecho.setPapa(nodo.getPapa())
+			nodoDerecho.setIzquierda(nodo.getIzquierda())
+			self.colocarAlturas(self.root)
 		return False
 
 	def recorrerIzquierda(self, nodo):
@@ -308,14 +352,18 @@ class AVL(object):
 		return nodo 
 
 
-	def buscar(self,valor, nodo,padre):
+	def buscar(self, valor, nodo, padre):
 		if nodo!= None:
 			if padre == None:
 
 				if valor > nodo.getValor() :
 					self.buscar(valor,nodo.getDerecha(),nodo)
-				else:
+				elif valor < nodo.getValor() :
 					self.buscar(valor, nodo.getIzquierda(),nodo)
+				else:
+					self.retorno = nodo
+					return self.retorno
+
 			else:
 				if valor == nodo.getValor():
 
@@ -332,46 +380,5 @@ class AVL(object):
 							self.buscar(valor, nodo.getIzquierda(),nodo)
 		return self.retorno
 
-
-
-'''	def delete(self,valor,nodo,padre):
-		if nodo!= None:
-			if padre == None:
-
-				self.delete(valor,nodo.getDerecha(),nodo)
-				self.delete(valor, nodo.getIzquierda(),nodo)
-				
-			else:
-				
-				if valor == nodo.getValor():
-					print nodo.getValor()
-					print "Hizo match "
-					self.match=True
-					if nodo.getDerecha()!=None:
-						print "Hay nodo derecha, se puede subir"
-						nodoaux = nodo
-						
-						
-						if padre.getDerecha() == nodo :
-							nodo = nodo.getDerecha() 
-							padre.setDerecha(nodo)
-							nodo.setIzquierda(nodoaux.getIzquierda())
-						else:
-							nodo = nodo.getIzquierda() 
-							padre.setIzquierda(nodo)
-							nodo.setDerecha(nodoaux.getDerecha())
-
-					elif nodo.getIzquierda()!= None:
-						print "hay nodo izquierda, se puede subir"
-					else:
-						print "Es hoja"
-				else:
-					if self.match!=True:
-						self.delete(valor,nodo.getDerecha(),nodo)
-						self.delete(valor, nodo.getIzquierda(),nodo)
-						
-
-'''
-
-
-			
+	def colocarAlturas(self, nodo):
+		nodo.obtenerAltura()
