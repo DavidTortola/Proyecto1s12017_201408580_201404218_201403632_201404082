@@ -19,11 +19,11 @@
             <classpath path="${java.home}/../lib/tools.jar:${build.classes.dir}:${j2ee.platform.wsgen.classpath}:${javac.classpath}"/>
         </taskdef>
     </target>
-    <target name="wsgen-ServicioWeb" depends="wsgen-init">
+    <target name="wsgen-Principal" depends="wsgen-init">
         <copy todir="${build.classes.dir}/META-INF">
-            <fileset dir="${webinf.dir}" includes="wsit-WebService.ServicioWeb.xml"/>
+            <fileset dir="${webinf.dir}" includes="wsit-WebService.Principal.xml"/>
         </copy>
-        <wsgen sourcedestdir="${build.generated.sources.dir}/jax-ws" resourcedestdir="${build.generated.sources.dir}/jax-ws/resources/" destdir="${build.generated.sources.dir}/jax-ws" verbose="true" keep="true" genwsdl="true" sei="WebService.ServicioWeb" xendorsed="true">
+        <wsgen sourcedestdir="${build.generated.sources.dir}/jax-ws" resourcedestdir="${build.generated.sources.dir}/jax-ws/resources/" destdir="${build.generated.sources.dir}/jax-ws" verbose="true" keep="true" genwsdl="true" sei="WebService.Principal" xendorsed="true">
             <classpath path="${java.home}/../lib/tools.jar:${build.classes.dir}:${j2ee.platform.wsgen.classpath}:${javac.classpath}"/>
         </wsgen>
     </target>
@@ -32,4 +32,32 @@
                 JAX-WS WSIMPORT SECTION
                 ===================
             -->
+    <target name="wsimport-init" depends="init">
+        <fail if="${wsimport.bad.version}" message="WsImport ant task defined in the classpath ${j2ee.platform.wsimport.classpath} has a serious bug. See http://wiki.netbeans.org/MetroIssue for details."/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
+        <property name="j2ee.platform.wsimport.classpath" value="${libs.jaxws21.classpath}"/>
+        <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+            <classpath path="${java.home}/../lib/tools.jar:${j2ee.platform.wsimport.classpath}:${javac.classpath}"/>
+        </taskdef>
+        <condition property="conf-dir" value="${conf.dir}/" else="">
+            <isset property="conf.dir"/>
+        </condition>
+    </target>
+    <target name="wsimport-client-WebService1" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/WebService1"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/WebService1" destdir="${build.generated.dir}/jax-wsCache/WebService1" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/WebService1/wsdl/localhost_27273/WebService1.asmx.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:27273/WebService1.asmx?WSDL" xnocompile="true" xendorsed="true" package="WebService">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/WebService1/wsdl/localhost_27273/WebService1.asmx.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/WebService1"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/WebService1">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-WebService1" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/WebService"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/WebService1"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-WebService1"/>
 </project>
