@@ -525,27 +525,161 @@ class Matriz(object):
 				#print auxiliar.getValor()
 			f.write(";\n")
 
-	def buscar(self,nombreusuario):
+	def buscar(self,nombreusuario,empresa,departamento):
+
 		derecha = self.ListaHorizontal.getInicio()
+
 		Actual=derecha
 
 		while derecha!= None:
+
 			abajo = self.ListaVertical.getInicio()
 
-			while abajo != None:
+			while abajo!= None:
+
 				if Actual.getAbajo()!= None:
 
 					Actual = Actual.getAbajo()
+
 					Auxiliar=Actual.getValor().getPrimero()
+
 					while Auxiliar!=None:
-						if nombreusuario== Auxiliar.getValor().getUsuario():
-							print "Concordo"
+
+						if nombreusuario== Auxiliar.getValor().getUsuario() and Auxiliar.getValor().getY()==departamento and Auxiliar.getValor().getX() == empresa:
+							
 							return Auxiliar.getValor()
-						Auxiliar=Auxiliar.getSiguiente()
+						else:
+
+							Auxiliar=Auxiliar.getSiguiente()
 
 
 				abajo = abajo.getAbajo()
 
 			derecha=derecha.getDerecha()
+
 			Actual=derecha
+
 		return None
+
+	def eliminar(self,departamento,empresa,valor):
+		AuxiliarVertical= self.ListaVertical.buscar(departamento)
+
+		AuxiliarHorizontal = self.ListaHorizontal.buscar(empresa)
+
+		if AuxiliarVertical!= None and AuxiliarHorizontal!= None:
+
+			Auxiliar = AuxiliarHorizontal
+
+			while Auxiliar.getAbajo()!= None:
+
+				Auxiliar = Auxiliar.getAbajo()
+
+				if Auxiliar.getY() == departamento:
+
+					lista = Auxiliar.getValor()
+
+					lista.eliminar(valor)
+
+					if lista.getPrimero()==None:
+
+						if self.X(empresa) != 1:
+
+							if Auxiliar.getAbajo() != None:
+
+								Auxiliar.getArriba().setAbajo(Auxiliar.getAbajo())
+								
+								Auxiliar.getAbajo().setArriba(Auxiliar.getArriba())
+							
+							elif Auxiliar.getAbajo() == None:
+								
+								Auxiliar.getArriba().setAbajo(None)
+						else:
+
+							self.ListaHorizontal.eliminar(empresa)
+
+						if self.Y(departamento)!= 1:
+							
+							if Auxiliar.getDerecha()!= None:
+								
+								Auxiliar.getIzquierda().setDerecha(Auxiliar.getDerecha())
+								
+								Auxiliar.getDerecha().setIzquierda(Auxiliarl.getIzquierda())
+							
+							elif Auxiliar.getDerecha()==None:
+								
+								Auxiliar.getIzquierda().setDerecha(None)
+						
+						else:
+							
+							self.ListaVertical.eliminar(departamento)
+					
+					return True
+
+			return False
+
+	def X(self,nodo):
+		contador= 0
+
+		derecha= self.ListaHorizontal.getPrimero()
+
+		Actual=derecha
+
+		while derecha!= None:
+
+			if derecha.getValor()==nodo:
+
+				abajo=self.ListaVertical.getPrimero()
+
+				while abajo!= None and Actual.getAbajo()!= None:
+
+					if Actual.getAbajo()!= None:
+
+						Actual=Actual.getAbajo()
+
+					contador=contador+1
+
+					abajo=abajo.getAbajo()
+
+				break
+
+			else:
+
+				derecha= derecha.getDerecha()
+
+				Actual= derecha
+
+		return contador
+
+	def Y(self, nodo):
+		contador= 0 
+
+		abajo = self.ListaVertical.getPrimero()
+
+		actual=abajo
+
+		while abajo!= None:
+
+			if abajo.getValor() == nodo:
+
+				derecha= self.ListaVertical.getPrimero()
+
+				while derecha!= None and Actual.getDerecha()!= None:
+
+					if Actual.getDerecha()!= None:
+
+						Actual= Actual.getDerecha()
+
+					contador= contador+1
+
+				derecha = derecha.getDerecha()
+
+				break
+
+			else:
+
+				abajo = abajo.getAbajo()
+
+				Actual= abajo
+
+		return contador
+
