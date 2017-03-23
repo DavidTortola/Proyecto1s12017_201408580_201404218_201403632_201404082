@@ -6,6 +6,7 @@
 package WebService;
 
 import Logica.Flask;
+import Logica.WebService1;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -22,7 +23,7 @@ public class Principal {
      */
     @WebMethod(operationName = "hello")
     public String hello(@WebParam(name = "name") String txt) {
-        return "Hello " + txt + " !";
+        return (new WebService1().getWebService1Soap()).prueba(txt);
     }
 
     /**
@@ -55,6 +56,15 @@ public class Principal {
     public String Login(@WebParam(name = "user") String user, @WebParam(name = "pass") String pass, @WebParam(name = "empresa") String empresa, @WebParam(name = "departamento") String departamento) {
         //TODO write your implementation code here:
         return (new Flask().Login(user, pass, empresa, departamento));
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "insertarAB")
+    public String insertarAB(@WebParam(name = "id") String id, @WebParam(name = "idactivo") String idactivo, @WebParam(name = "usuario") String usuario, @WebParam(name = "empresa") String empresa, @WebParam(name = "departamento") String departamento, @WebParam(name = "fecha") String fecha, @WebParam(name = "tiempo") String tiempo) {
+        //TODO write your implementation code here:
+        return (new WebService1().getWebService1Soap().insertar(id, idactivo, usuario, empresa, departamento, fecha, tiempo));
     }
     
     

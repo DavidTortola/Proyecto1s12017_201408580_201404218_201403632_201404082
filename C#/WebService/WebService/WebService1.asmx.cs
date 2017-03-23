@@ -12,10 +12,13 @@ namespace WebService
     [WebService(Namespace = "http://tempuri.org/")]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
+
     // Para permitir que se llame a este servicio web desde un script, usando ASP.NET AJAX, quite la marca de comentario de la línea siguiente. 
     // [System.Web.Script.Services.ScriptService]
-    public class WebService1 : System.Web.Services.WebService
+    public class WebService1: System.Web.Services.WebService
     {
+        public static ArbolB arbolB = new ArbolB();
+  
 
         [WebMethod]
         public string HelloWorld()
@@ -28,6 +31,24 @@ namespace WebService
 
             return par +  " Esto es en C#";
 
+        }
+
+        [WebMethod]
+        public string insertar(string idrenta, string idactivo, string user, string empresa, string departamento, string fecha, string tiempo)
+        {
+
+            Rentas renta = new Rentas();
+            renta.identificador = idrenta;
+            renta.idActivo = idactivo;
+            renta.usuario = user;
+            renta.empresa = empresa;
+            renta.departamento = departamento;
+            renta.fecha = fecha;
+            renta.tiempo = tiempo;
+
+            arbolB.insertar(renta);
+            arbolB.printGraphviz();
+            return "Agregado";
         }
     }
 }

@@ -9,7 +9,7 @@
     <client name="WebService1">
       <wsdl-url>http://localhost:27273/WebService1.asmx?WSDL</wsdl-url>
       <local-wsdl-file>localhost_27273/WebService1.asmx.wsdl</local-wsdl-file>
-      <package-name forceReplace="true">WebService</package-name>
+      <package-name forceReplace="true">Logica</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
@@ -38,7 +38,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>package</wsimport-option-name>
-          <wsimport-option-value>WebService</wsimport-option-value>
+          <wsimport-option-value>Logica</wsimport-option-value>
         </wsimport-option>
       </wsimport-options>
     </client>

@@ -45,7 +45,7 @@
     </target>
     <target name="wsimport-client-WebService1" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/WebService1"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/WebService1" destdir="${build.generated.dir}/jax-wsCache/WebService1" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/WebService1/wsdl/localhost_27273/WebService1.asmx.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:27273/WebService1.asmx?WSDL" xnocompile="true" xendorsed="true" package="WebService">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/WebService1" destdir="${build.generated.dir}/jax-wsCache/WebService1" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/WebService1/wsdl/localhost_27273/WebService1.asmx.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:27273/WebService1.asmx?WSDL" xnocompile="true" xendorsed="true" package="Logica">
             <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/WebService1/wsdl/localhost_27273/WebService1.asmx.wsdl"/>
             <produces dir="${build.generated.dir}/jax-wsCache/WebService1"/>
         </wsimport>
@@ -56,7 +56,7 @@
         </copy>
     </target>
     <target name="wsimport-client-clean-WebService1" depends="-init-project">
-        <delete dir="${build.generated.sources.dir}/jax-ws/WebService"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/Logica"/>
         <delete dir="${build.generated.dir}/jax-wsCache/WebService1"/>
     </target>
     <target name="wsimport-client-generate" depends="wsimport-client-WebService1"/>
