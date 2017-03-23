@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    tools:context="com.example.jorgeespina.rentaactivos.Inicio_de_Sesion">
+
+    <LinearLayout
+        android:layout_width="375dp"
+        android:layout_height="496dp"
+        android:foregroundGravity="center"
+        android:gravity="center_vertical|center_horizontal|fill_horizontal|center|clip_horizontal"
+        android:orientation="vertical"
+        android:weightSum="1"
+        tools:layout_editor_absoluteX="5dp"
+        tools:layout_editor_absoluteY="7dp">
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="337dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            app:srcCompat="@mipmap/user" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Ingrese Usuario:" />
+
+        <EditText
+            android:id="@+id/txtusuario"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.09"
+            android:ems="10"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.09"
+            android:gravity="center"
+            android:text="Ingrese Constraseña:" />
+
+        <EditText
+            android:id="@+id/txtcontraseña"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.09"
+            android:ems="10"
+            android:foregroundGravity="center"
+            android:gravity="center_vertical|center"
+            android:inputType="textPassword" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.09"
+            android:gravity="center"
+            android:text="Empresa" />
+
+        <EditText
+            android:id="@+id/txtempresa"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.09"
+            android:ems="10"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.09"
+            android:gravity="center"
+            android:text="Departamento" />
+
+        <EditText
+            android:id="@+id/txtdepartamento"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.09"
+            android:ems="10"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:inputType="textPersonName" />
+
+        <ImageButton
+            android:id="@+id/ingresar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:foregroundGravity="center"
+            app:srcCompat="@mipmap/login" />
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

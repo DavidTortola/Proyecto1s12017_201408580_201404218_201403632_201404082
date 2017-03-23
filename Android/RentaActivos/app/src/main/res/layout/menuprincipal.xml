@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="166dp"
+        app:srcCompat="@mipmap/home" />
+
+    <Button
+        android:id="@+id/btnrentar"
+        android:layout_width="186dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:drawableTop="@mipmap/rentar"
+        android:foregroundGravity="center"
+        android:gravity="center"
+        android:text="Rentar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <Button
+            android:id="@+id/btnregistrodevoluciones"
+            android:layout_width="188dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableTop="@mipmap/registrodevolucion"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:text="Registro Devoluciones" />
+
+        <Button
+            android:id="@+id/btncerrarsesion"
+            android:layout_width="197dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.10"
+            android:drawableTop="@mipmap/cerrarsesion"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:text="Cerrar Sesion" />
+    </LinearLayout>
+</LinearLayout>
