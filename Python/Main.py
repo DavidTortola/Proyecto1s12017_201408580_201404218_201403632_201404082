@@ -27,13 +27,15 @@ app = Flask("Proyecto1")
 @app.route('/Matriz', methods = ['POST']) 
 def usuario2():
 
-	if str(request.form['tipo'])=="buscar":
+	if str(request.form['tipo'])=="login":
 		arreglo = str(request.form['informacion']).split("$")
 
 		aux = matriz1.buscar(arreglo[0],arreglo[3],arreglo[2])
+		if aux!= None:
+			return aux.getNombre()+"$"+aux.getUsuario()+"$"+aux.getContrasena()+ "$"+ aux.getX()+ "$"+aux.getY()
 
-
-		return "Nombre: "+aux.getNombre()+" Usuario: "+aux.getUsuario()+" Contrasena: "+aux.getContrasena()+ " Empresa: "+ aux.getX()+ " Departamento: "+aux.getY()
+		else:
+			return False
 
 	elif str(request.form['tipo'])=="registrar":
 
@@ -61,7 +63,9 @@ def usuario2():
 
 		activo = ac.Activo()
 
-		activo.setId(generadorid.obtenerID(15))
+		identificador =generadorid.obtenerID(15)
+
+		activo.setId(identificador)
 
 		activo.setUsuario(arreglo[0])
 
@@ -79,19 +83,23 @@ def usuario2():
 
 		activo.setUsuario(usuario)
 
-		
+		arbol.impreArbol(arbol.getRoot(), None)
 
+		return "Identificador de Activo: "+ identificador
 
+	elif str(request.form['tipo'])=="generarid":
 
+		generadorid = gid.GeneradorID()
+		identificador =generadorid.obtenerID(15)
 
+		return identificador
 
+	elif str(request.form['tipo'])=="eliminar":
 
+		generadorid = gid.GeneradorID()
+		identificador =generadorid.obtenerID(15)
 
-		return "Agregado"
-
-
-
-
+		return identificador
 
 
 if __name__ == "__main__":
