@@ -9,6 +9,7 @@ namespace WebService
 {
     public class ArbolB
     {
+
         public NodoArbolB raiz;
         public ArbolB()
         {
@@ -37,6 +38,29 @@ namespace WebService
             {
                 return null;
             }
+        }
+        private List<NodoArbolB> buscarActivo(Rentas renta, NodoArbolB nodo)
+        {
+            List<NodoArbolB> lst = new List<NodoArbolB>();
+
+            if (nodo != null)
+            {
+                int i = 1;
+                while (i <= nodo.ULlave && (nodo.llaves[i - 1].idActivo.CompareTo(renta.idActivo) != 1))
+                    i++;
+                if (i > nodo.ULlave || nodo.llaves[i - 1].idActivo.CompareTo(renta.idActivo) == 1)
+
+                    lst = buscarActivo(renta, nodo.punteros[i - 1]);
+
+                else
+
+                     lst.Add(nodo);
+            }
+            else
+            {
+                return lst;
+            }
+        return lst;
         }
 
         //OBTENER VALOR DE ATRIBUTO KEY (MOSTRAR)
@@ -269,7 +293,7 @@ namespace WebService
             int i = 0;
             while (i < nodo.ULlave)
             {
-                if (nodo.llaves[i].idActivo == renta.idActivo)
+                if (nodo.llaves[i].identificador == renta.identificador)
                 {
                     while (i < nodo.ULlave - 1)
                     {
@@ -491,67 +515,71 @@ namespace WebService
         //METODO ELIMINAR , ELIMINA ID EN EL ARBOL SEGUN PARAMETRO ENVIADO
         public void Remover(Rentas renta)
         {
-            //BUSCA LA CLAVE
-            NodoArbolB nodo = buscar(renta, this.raiz);
-            if (nodo != null)
+            List<NodoArbolB> list = buscarActivo(renta, this.raiz);
+            for (int i = 0; i < list.Count; i++)
             {
-                //ELIMINACION SI Y SOLO SI EL NODO NO ES HOJA 
-                if (nodo.hoja == false)
+                //BUSCA LA CLAVE
+                NodoArbolB nodo = list[i];
+                if (nodo != null)
                 {
-                    NodoArbolB hoja = PrecedenciaNodo(renta, nodo);
-                    Rentas presedencia = hoja.llaves[0];
-                    ReemplazarLlave(nodo, renta, presedencia);
-                    nodo = hoja;
-                    EliminarHoja(hoja, presedencia);
-                }
-                else
-                {
-                    //ELIMINACION NODO EN HOJA 
-                    EliminarHoja(nodo, renta);
-                }
+                    //ELIMINACION SI Y SOLO SI EL NODO NO ES HOJA 
+                    if (nodo.hoja == false)
+                    {
+                        NodoArbolB hoja = PrecedenciaNodo(renta, nodo);
+                        Rentas presedencia = hoja.llaves[0];
+                        ReemplazarLlave(nodo, renta, presedencia);
+                        nodo = hoja;
+                        EliminarHoja(hoja, presedencia);
+                    }
+                    else
+                    {
+                        //ELIMINACION NODO EN HOJA 
+                        EliminarHoja(nodo, renta);
+                    }
 
-                //ALGORITMO QUE SE MANTIENE EJECUTANDO DURANTE LA ELIMINACION 
-                //INSTRUCCIONES QUE CREAN NUEVAS RAICES, COMBINAN , MUEVEN IZQ DER EN CASO QUE SE ELIMINO
-                //NODOS EN LOS CUALES SE REQUIERE RESTRUCTURAR EL ARBOL ARMANDO NUEVAS PAGINAS
-                while (true)
-                {
-                    if (VerificarMinimo(nodo))
+                    //ALGORITMO QUE SE MANTIENE EJECUTANDO DURANTE LA ELIMINACION 
+                    //INSTRUCCIONES QUE CREAN NUEVAS RAICES, COMBINAN , MUEVEN IZQ DER EN CASO QUE SE ELIMINO
+                    //NODOS EN LOS CUALES SE REQUIERE RESTRUCTURAR EL ARBOL ARMANDO NUEVAS PAGINAS
+                    while (true)
                     {
-                        return;
-                    }
-                    else if (derecha(nodo) != null && derecha(nodo).ULlave > 2)
-                    {
-                        TomardeDerecha(nodo);
-                        return;
-                    }
-                    else if (izquierda(nodo) != null && izquierda(nodo).ULlave > 2)
-                    {
-                        TomardeIzquierda(nodo);
-                        return;
-                    }
-                    else if (nodo.Padre == this.raiz)
-                    {
-                        if (nodo.Padre.ULlave == 1)
+                        if (VerificarMinimo(nodo))
                         {
-                            if (derecha(nodo) != null)
+                            return;
+                        }
+                        else if (derecha(nodo) != null && derecha(nodo).ULlave > 2)
+                        {
+                            TomardeDerecha(nodo);
+                            return;
+                        }
+                        else if (izquierda(nodo) != null && izquierda(nodo).ULlave > 2)
+                        {
+                            TomardeIzquierda(nodo);
+                            return;
+                        }
+                        else if (nodo.Padre == this.raiz)
+                        {
+                            if (nodo.Padre.ULlave == 1)
                             {
-                                NuevaRaiz(nodo, derecha(nodo));
+                                if (derecha(nodo) != null)
+                                {
+                                    NuevaRaiz(nodo, derecha(nodo));
+                                }
+                                else if (izquierda(nodo) != null)
+                                {
+                                    NuevaRaiz(izquierda(nodo), nodo);
+                                }
                             }
-                            else if (izquierda(nodo) != null)
+                            else
                             {
-                                NuevaRaiz(izquierda(nodo), nodo);
+                                combinar(nodo);
                             }
+                            return;
                         }
                         else
                         {
                             combinar(nodo);
+                            nodo = nodo.Padre;
                         }
-                        return;
-                    }
-                    else
-                    {
-                        combinar(nodo);
-                        nodo = nodo.Padre;
                     }
                 }
             }

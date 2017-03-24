@@ -77,4 +77,20 @@ public class ObjectFactory {
         return new InsertarResponse();
     }
 
+    /**
+     * Create an instance of {@link Eliminar }
+     * 
+     */
+    public Eliminar createEliminar() {
+        return new Eliminar();
+    }
+
+    /**
+     * Create an instance of {@link EliminarResponse }
+     * 
+     */
+    public EliminarResponse createEliminarResponse() {
+        return new EliminarResponse();
+    }
+
 }

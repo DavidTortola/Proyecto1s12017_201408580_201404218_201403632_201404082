@@ -46,6 +46,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="eliminar">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="idActivo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="eliminarResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="eliminarResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="HelloWorldSoapIn">
@@ -66,6 +80,12 @@
   <wsdl:message name="insertarSoapOut">
     <wsdl:part name="parameters" element="tns:insertarResponse" />
   </wsdl:message>
+  <wsdl:message name="eliminarSoapIn">
+    <wsdl:part name="parameters" element="tns:eliminar" />
+  </wsdl:message>
+  <wsdl:message name="eliminarSoapOut">
+    <wsdl:part name="parameters" element="tns:eliminarResponse" />
+  </wsdl:message>
   <wsdl:portType name="WebService1Soap">
     <wsdl:operation name="HelloWorld">
       <wsdl:input message="tns:HelloWorldSoapIn" />
@@ -78,6 +98,10 @@
     <wsdl:operation name="insertar">
       <wsdl:input message="tns:insertarSoapIn" />
       <wsdl:output message="tns:insertarSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="eliminar">
+      <wsdl:input message="tns:eliminarSoapIn" />
+      <wsdl:output message="tns:eliminarSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WebService1Soap" type="tns:WebService1Soap">
@@ -109,6 +133,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="eliminar">
+      <soap:operation soapAction="http://tempuri.org/eliminar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="WebService1Soap12" type="tns:WebService1Soap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -132,6 +165,15 @@
     </wsdl:operation>
     <wsdl:operation name="insertar">
       <soap12:operation soapAction="http://tempuri.org/insertar" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="eliminar">
+      <soap12:operation soapAction="http://tempuri.org/eliminar" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

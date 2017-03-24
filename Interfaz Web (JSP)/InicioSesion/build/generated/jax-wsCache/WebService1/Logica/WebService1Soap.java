@@ -80,4 +80,18 @@ public interface WebService1Soap {
         @WebParam(name = "tiempo", targetNamespace = "http://tempuri.org/")
         String tiempo);
 
+    /**
+     * 
+     * @param idActivo
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod(action = "http://tempuri.org/eliminar")
+    @WebResult(name = "eliminarResult", targetNamespace = "http://tempuri.org/")
+    @RequestWrapper(localName = "eliminar", targetNamespace = "http://tempuri.org/", className = "Logica.Eliminar")
+    @ResponseWrapper(localName = "eliminarResponse", targetNamespace = "http://tempuri.org/", className = "Logica.EliminarResponse")
+    public String eliminar(
+        @WebParam(name = "idActivo", targetNamespace = "http://tempuri.org/")
+        String idActivo);
+
 }

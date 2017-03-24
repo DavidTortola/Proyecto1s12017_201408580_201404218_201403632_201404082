@@ -48,7 +48,21 @@ namespace WebService
 
             arbolB.insertar(renta);
             arbolB.printGraphviz();
+
             return "Agregado";
         }
+
+        [WebMethod]
+        public string eliminar(string idActivo) {
+            Rentas renta = new Rentas();
+
+            renta.idActivo = idActivo;
+
+            arbolB.Remover(renta);
+            arbolB.printGraphviz();
+            return "Transacciones eliminadas";
+
+        }
+
     }
 }

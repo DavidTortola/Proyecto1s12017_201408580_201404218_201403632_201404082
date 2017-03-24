@@ -71,8 +71,8 @@ public class Principal {
         Date date = new Date();
         String id = (new Flask().GenerarID());
         String fecha = date.toString();
-        new WebService1().getWebService1Soap().insertar(id, idActivo, usuario, empresa, departamento, fecha, tiempo);
-        return "Identificador de Renta: " + id;
+       String gg = (new WebService1().getWebService1Soap().insertar(id, idActivo, usuario, empresa, departamento, fecha, tiempo));
+        return "Identificador de Renta: " + id+ "  " + gg;
     }
 
     /**
@@ -83,5 +83,15 @@ public class Principal {
         //TODO write your implementation code here:
         return (new Flask().RegistrarActivo(usuario, nombreProducto, descripcion, empresa, departamento));
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "EliminarTransaccion")
+    public String EliminarTransaccion(@WebParam(name = "idActivo") String idActivo) {
+        //TODO write your implementation code here:
+        return (new WebService1().getWebService1Soap().eliminar(idActivo));
+    }
+    
 
 }

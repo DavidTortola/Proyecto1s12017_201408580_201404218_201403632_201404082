@@ -10,7 +10,10 @@ from ArbolAVL import Activo
 ac= Activo
 
 from MatrizDispersa import GeneradorID
-gid = GeneradorID
+
+GI = GeneradorID
+
+
 
 
 from MatrizDispersa import Usuario
@@ -59,11 +62,12 @@ def usuario2():
 
 		arreglo = str(request.form['informacion']).split("$")
 
-		generadorid = gid.GeneradorID()
+		generador = GI.GeneradorID()
+
 
 		activo = ac.Activo()
 
-		identificador =generadorid.obtenerID(15)
+		identificador =str(generador.generarID(15))
 
 		activo.setId(identificador)
 
@@ -89,8 +93,9 @@ def usuario2():
 
 	elif str(request.form['tipo'])=="generarid":
 
-		generadorid = gid.GeneradorID()
-		identificador =generadorid.obtenerID(15)
+		generador = GI.GeneradorID()
+
+		identificador =str(generador.generarID(15))
 
 		return identificador
 
