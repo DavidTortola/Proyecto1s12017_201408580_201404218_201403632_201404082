@@ -33,7 +33,8 @@ public class Principal {
     @WebMethod(operationName = "Prueba")
     public String Prueba(@WebParam(name = "parameter") String parameter) {
         //TODO write your implementation code here:       
-        return (new Flask().Login(parameter, parameter, parameter, parameter)).toString();
+        //return (new Flask().Login(parameter, parameter, parameter, parameter)).toString();
+        return null;
     }
 
     /**
@@ -55,7 +56,7 @@ public class Principal {
      * @return
      */
     @WebMethod(operationName = "Login")
-    public String Login(@WebParam(name = "user") String user, @WebParam(name = "pass") String pass, @WebParam(name = "empresa") String empresa, @WebParam(name = "departamento") String departamento) {
+    public boolean Login(@WebParam(name = "user") String user, @WebParam(name = "pass") String pass, @WebParam(name = "empresa") String empresa, @WebParam(name = "departamento") String departamento) {
         //TODO write your implementation code here:
         return (new Flask().Login(user, pass, empresa, departamento));
     }
@@ -78,9 +79,9 @@ public class Principal {
      * Web service operation
      */
     @WebMethod(operationName = "RegistrarActivo")
-    public String RegistrarActivo(@WebParam(name = "usuario") String usuario, @WebParam(name = "nombre") String nombre, @WebParam(name = "descripcion") String descripcion, @WebParam(name = "empresa") String empresa, @WebParam(name = "departamento") String departamento) {
+    public String RegistrarActivo(@WebParam(name = "usuario") String usuario, @WebParam(name = "nombreProducto") String nombreProducto, @WebParam(name = "descripcion") String descripcion, @WebParam(name = "empresa") String empresa, @WebParam(name = "departamento") String departamento) {
         //TODO write your implementation code here:
-        return null;
+        return (new Flask().RegistrarActivo(usuario, nombreProducto, descripcion, empresa, departamento));
     }
 
 }

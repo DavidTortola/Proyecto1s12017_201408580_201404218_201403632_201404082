@@ -26,21 +26,46 @@ public class Flask {
 
     }
 
-    public String Login(String user, String pass, String empresa, String departamento) {
+    public boolean Login(String user, String pass, String empresa, String departamento) {
         //Metodo para buscar en la matriz
-        String arreglo = user+"$"+pass+"$"+empresa+"$"+departamento;
-        return sendText(arreglo, "buscar");
+        boolean estado;
+        String arreglo = user + "$" + pass + "$" + empresa + "$" + departamento;
+        String[] devolucion = sendText(arreglo, "login").split("$");
+
+        if (sendText(arreglo, "login").equals("False")) {
+            estado = false;
+        } else {
+            if (devolucion[1].equals(user) && devolucion[2].equals(pass)) {
+                estado = true;
+            } else {
+                estado = false;
+            }
+        }
+        return estado;
     }
 
-    public String Registrar(String user, String pass,String nombre, String empresa, String departamento) {
-        String arreglo = user+"$"+pass+"$"+nombre+"$"+empresa+"$"+departamento;
-        return sendText(arreglo,"registrar");
+    public String Registrar(String user, String pass, String nombre, String empresa, String departamento) {
+        String arreglo = user + "$" + pass + "$" + nombre + "$" + empresa + "$" + departamento;
+        return sendText(arreglo, "registrar");
 
     }
-    public String RegistrarActivo(String usuario,String producto,String Descripcion,String empresa,String departamento){
-    String arreglo = usuario+"$"+producto+"$"+Descripcion+"$"+empresa+"$"+departamento;
 
-    return sendText(arreglo,"registrarActivo");
+    public String RegistrarActivo(String usuario, String producto, String Descripcion, String empresa, String departamento) {
+        String arreglo = usuario + "$" + producto + "$" + Descripcion + "$" + empresa + "$" + departamento;
+
+        return sendText(arreglo, "registrarActivo");
+
+    }
+
+    public String GenerarID() {
+        String id = sendText("", "generarid");
+        return id;
+    }
+
+    public String EliminarUsuario(String usuario, String empresa, String departamento) {
+        String arreglo = usuario + "$" + empresa + "$" + departamento;
+        sendText(arreglo, "eliminarUsuario");
+        return "Eliminado";
     }
 
     public static String getString(String metodo, RequestBody formBody) {

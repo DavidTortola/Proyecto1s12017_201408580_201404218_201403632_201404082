@@ -94,12 +94,11 @@ def usuario2():
 
 		return identificador
 
-	elif str(request.form['tipo'])=="eliminar":
+	elif str(request.form['tipo'])=="eliminarUsuario":
 
-		generadorid = gid.GeneradorID()
-		identificador =generadorid.obtenerID(15)
-
-		return identificador
+		arreglo = str(request.form['informacion']).split("$")
+		
+		matriz1.eliminar(arreglo[2],arreglo[1],arreglo[0])
 
 
 if __name__ == "__main__":

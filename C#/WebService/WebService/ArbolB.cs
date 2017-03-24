@@ -269,7 +269,7 @@ namespace WebService
             int i = 0;
             while (i < nodo.ULlave)
             {
-                if (nodo.llaves[i].identificador == renta.identificador)
+                if (nodo.llaves[i].idActivo == renta.idActivo)
                 {
                     while (i < nodo.ULlave - 1)
                     {
