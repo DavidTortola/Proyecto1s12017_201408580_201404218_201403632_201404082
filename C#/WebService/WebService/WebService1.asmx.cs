@@ -56,8 +56,7 @@ namespace WebService
         public string eliminar(string idActivo) {
             Rentas renta = new Rentas();
 
-            renta.identificador = idActivo;
-
+            renta.idActivo = idActivo;
             arbolB.Remover(renta);
             arbolB.printGraphviz();
             return "Transacciones eliminadas";

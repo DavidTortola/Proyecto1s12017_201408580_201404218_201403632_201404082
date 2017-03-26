@@ -512,7 +512,7 @@ namespace WebService
         public void Remover(Rentas renta)
         {
             //BUSCA LA CLAVE
-            while (buscarActivo(renta, this.raiz) != null)
+            while (buscarActivo(renta, this.raiz).llaves != null)
             {
                 NodoArbolB nodo = buscarActivo(renta, this.raiz);
                 if (nodo != null)
@@ -584,7 +584,7 @@ namespace WebService
         {
             NodoArbolB auxNode = this.raiz;
 
-            StreamWriter sw = new StreamWriter("C:\\Reportes\\btree.txt");
+            StreamWriter sw = new StreamWriter("C:\\Reportes\\ArbolB.txt");
             sw.WriteLine("digraph G {");
             sw.WriteLine("\t rankdir = TB; \n");
             sw.WriteLine("\t node[shape=record]; \n");
@@ -596,8 +596,8 @@ namespace WebService
             sw.WriteLine("\t } \n");
             sw.Close();
             String dotPath = "dot.exe";
-            String fileInputPath = "C:\\Reportes\\btree.txt";
-            String fileOutputPath = "C:\\Reportes\\btree.png";
+            String fileInputPath = "C:\\Reportes\\ArbolB.txt";
+            String fileOutputPath = "C:\\Reportes\\ArbolB.png";
             String tParam = "-Tpng";
             String tOParam = "-o";
             String[] cmd = new String[5];
