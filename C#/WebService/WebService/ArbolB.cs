@@ -9,6 +9,7 @@ namespace WebService
 {
     public class ArbolB
     {
+         List<NodoArbolB> lstnodos = new List<NodoArbolB>();
 
         public NodoArbolB raiz;
         public ArbolB()
@@ -22,45 +23,41 @@ namespace WebService
 
         //METODO DE BUSQUEDA , PERMITIRA BUSCAR ELEMENTOS EN EL ARBOL 
         //ALGORITMO REURSIVO ESENCIAL PARA LA INSERCION , ELIMINACION
-        private NodoArbolB buscar(Rentas renta, NodoArbolB nodo)
+        private NodoArbolB buscar(Rentas renta, NodoArbolB node)
         {
-            if (nodo != null)
+            if (node != null)
             {
                 int i = 1;
-                while (i <= nodo.ULlave && (nodo.llaves[i - 1].identificador.CompareTo(renta.identificador) != 1))
+                while (i <= node.ULlave && (string.Compare(node.llaves[i - 1].identificador, renta.identificador) < 0))
+  
                     i++;
-                if (i > nodo.ULlave || nodo.llaves[i - 1].identificador.CompareTo(renta.identificador) == 1)
-                    return buscar(renta, nodo.punteros[i - 1]);
+                if (i > node.ULlave || (string.Compare(node.llaves[i - 1].identificador, renta.identificador) > 0))
+                    return buscar(renta, node.punteros[i - 1]);
                 else
-                    return nodo;
+                    return node;
             }
             else
             {
                 return null;
             }
         }
-        private List<NodoArbolB> buscarActivo(Rentas renta, NodoArbolB nodo)
+        private NodoArbolB buscarActivo(Rentas renta, NodoArbolB node)
         {
-            List<NodoArbolB> lst = new List<NodoArbolB>();
-
-            if (nodo != null)
+            if (node != null)
             {
                 int i = 1;
-                while (i <= nodo.ULlave && (nodo.llaves[i - 1].idActivo.CompareTo(renta.idActivo) != 1))
+                while (i <= node.ULlave && (string.Compare(node.llaves[i - 1].idActivo, renta.idActivo) < 0))
+
                     i++;
-                if (i > nodo.ULlave || nodo.llaves[i - 1].idActivo.CompareTo(renta.idActivo) == 1)
-
-                    lst = buscarActivo(renta, nodo.punteros[i - 1]);
-
+                if (i > node.ULlave || (string.Compare(node.llaves[i - 1].idActivo, renta.idActivo) > 0))
+                    return buscarActivo(renta, node.punteros[i - 1]);
                 else
-
-                     lst.Add(nodo);
+                    return node;
             }
             else
             {
-                return lst;
+                return null;
             }
-        return lst;
         }
 
         //OBTENER VALOR DE ATRIBUTO KEY (MOSTRAR)
@@ -252,7 +249,7 @@ namespace WebService
             int i = 1;
             while (i <= nodo.ULlave)
             {
-                if (nodo.llaves[i - 1].Equals(renta.identificador))
+                if (nodo.llaves[i - 1].identificador.Equals(renta.identificador))
                 {
                     nodo = nodo.punteros[i];
                     break;
@@ -280,7 +277,7 @@ namespace WebService
             {
                 if (nodo.llaves[i - 1].identificador.Equals(renta.identificador))
                 {
-                    nodo.llaves[i - 1] = renta;
+                    nodo.llaves[i - 1] = renta2;
                     break;
                 }
                 i++;
@@ -293,7 +290,7 @@ namespace WebService
             int i = 0;
             while (i < nodo.ULlave)
             {
-                if (nodo.llaves[i].identificador == renta.identificador)
+                if (nodo.llaves[i].idActivo.Equals(renta.idActivo))
                 {
                     while (i < nodo.ULlave - 1)
                     {
@@ -304,7 +301,6 @@ namespace WebService
                     nodo.llaves[nodo.ULlave - 1] = null;
 
                     nodo.ULlave--;
-                    return;
                 }
                 else
                 {
@@ -515,11 +511,10 @@ namespace WebService
         //METODO ELIMINAR , ELIMINA ID EN EL ARBOL SEGUN PARAMETRO ENVIADO
         public void Remover(Rentas renta)
         {
-            List<NodoArbolB> list = buscarActivo(renta, this.raiz);
-            for (int i = 0; i < list.Count; i++)
+            //BUSCA LA CLAVE
+            while (buscarActivo(renta, this.raiz) != null)
             {
-                //BUSCA LA CLAVE
-                NodoArbolB nodo = list[i];
+                NodoArbolB nodo = buscarActivo(renta, this.raiz);
                 if (nodo != null)
                 {
                     //ELIMINACION SI Y SOLO SI EL NODO NO ES HOJA 
@@ -581,6 +576,7 @@ namespace WebService
                             nodo = nodo.Padre;
                         }
                     }
+
                 }
             }
         }
@@ -652,7 +648,7 @@ namespace WebService
                     {
                         sw.WriteLine(" | ID Transaccion: ");
                     }
-                    if (nodo.llaves[i]!= null)
+                    if (nodo.llaves[i] != null)
                     {
                         sw.WriteLine(nodo.llaves[i].identificador);
 

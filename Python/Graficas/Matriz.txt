@@ -3,33 +3,22 @@ node [fontcolor="white", height=0.5, color="white"]
 [shape=tripleoctagon, style=filled, color=blue]rankdir=LR 
 edge  [color="black", dir=fordware]
 inicial[style ="filled"; label="inicial";pos= "0,0!"] 
-"empresa1"[style ="filled"; label="empresa1";pos= "1,0!"]
-"empresa3"[style ="filled"; label="empresa3";pos= "2,0!"]
-aaa[style ="filled"; label=aaa;pos= "0,1!"]
-bbb[style ="filled"; label=bbb;pos= "0,2!"]
-AndreeAvalos[shape=doubleoctagon,style ="filled"; label=AndreeAvalos;pos= "1,1!"]
-"bobo"[shape=octagon, style ="filled"; label="bobo";pos= "1.05,1.05!"]
-;
-AndreeAvalos->bobo;
-bobo->AndreeAvalos;
-juancho[shape=doubleoctagon,style ="filled"; label=juancho;pos= "2,2!"]
+"USAC"[style ="filled"; label="USAC";pos= "1,0!"]
+cerotrece[style ="filled"; label=cerotrece;pos= "0,1!"]
+Prueba[shape=doubleoctagon,style ="filled"; label=Prueba;pos= "1,1!"]
 
- inicial->"empresa1"->inicial->aaa->inicial;
-"empresa1"->"empresa3";"empresa3"->"empresa1";
-aaa->bbb;
-bbb->aaa;
-"empresa1"->AndreeAvalos;
-"empresa3"->juancho;
+ inicial->"USAC"->inicial->cerotrece->inicial;
+"USAC";"USAC";
+cerotrece;
+cerotrece;
+"USAC"->Prueba;
 
 
 
-aaa->AndreeAvalos;
-bbb->juancho;
+cerotrece->Prueba;
 
 
 
-AndreeAvalos->"empresa1";
-juancho->"empresa3";
-AndreeAvalos->aaa;
-juancho->bbb;
+Prueba->"USAC";
+Prueba->cerotrece;
 }

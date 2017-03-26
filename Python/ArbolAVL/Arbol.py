@@ -12,8 +12,14 @@ class AVL(object):
 		self.root = root
 		self.nivel = nivel
 		self.f = f
-		self.match=False 
-		self.retorno =None	
+		self.match = False 
+		self.retorno = None	
+		self.nuevaRaiz = None
+		self.borrado = False
+		self.apuntado = False
+		self.Aux = None
+		self.Aux2 = None
+		self.apuntado2 = False
 
 	#Metodos sets y gets.
 	#--------------------
@@ -55,7 +61,7 @@ class AVL(object):
 			#hacia el hijo izquierdo
 		elif self.comparar(valor,raiz.getValor()) < 0:
 
-			nodoaux= self.insert(valor,raiz.getIzquierda())
+			nodoaux = self.insert(valor,raiz.getIzquierda())
 
 			#Insertamos el valor en el nodo izquierdo
 			raiz.setIzquierda(nodoaux)
@@ -109,8 +115,9 @@ class AVL(object):
 
 
 	def EnlazarPapas(self,nodo,padre):
-		nodo.setPapa(padre)
-		if nodo!= None:
+		#nodo.setPapa(padre)
+		if nodo != None:
+			nodo.setPapa(padre)
 			if nodo.getDerecha()!= None :
 				self.EnlazarPapas(nodo.getDerecha(),nodo)
 			if nodo.getIzquierda()!= None :
@@ -119,9 +126,9 @@ class AVL(object):
 	#Metodo que compara dos entradas, si se usan letras compara el ASCII.
 	def comparar(self,v1,v2):
 		resultado= 0
-		if v1<v2 :
+		if v1.getId()<v2.getId() :
 			resultado=-1
-		elif v1>v2:
+		elif v1.getId()>v2.getId():
 			resultado=1
 		else:
 			resultado = 0 
@@ -191,33 +198,32 @@ class AVL(object):
 				self.f.write("[shape=circle, style=filled, color=blue]")
 				self.f.write("rankdir=UD \n")
 				self.f.write("edge  [color=\"white\", dir=fordware]\n")
-				self.f.write(str(nodo.getValor()) +";\n")
+				self.f.write(str(nodo.getValor().getId()) +";\n")
 				self.impreArbol(nodo.getIzquierda(), nodo)
 				self.impreArbol(nodo.getDerecha(), nodo)
 				self.f.write("}")
 				self.f.close()
 				subprocess.Popen("dot -Tpng Graficas\AVL.txt -o Graficas\AVL.png")
 			else:
-				self.f.write(str(padre.getValor()) +"->" +str(nodo.getValor()) +";\n")
+				self.f.write(str(padre.getValor().getId()) +"->" +str(nodo.getValor().getId()) +";\n")
 				self.impreArbol(nodo.getIzquierda(), nodo)
 				self.impreArbol(nodo.getDerecha(), nodo)
-
 
 	def eliminar(self,valor):
 		#Busco el nodo a eliminar
 	 	nodo = self.buscar(valor,self.root,None)
-		self.match=False #Se renueva la bandera para buscar
+		self.match = False #Se renueva la bandera para buscar
+
 		self.EnlazarPapas(self.root,None)
 		#Se elimina el nodo
 		self.delete(nodo)
-
 
 	def delete(self,nodo):
 
 		if nodo.getDerecha() != None :
 			derecha = True
 			
-		else :
+		else:
 			derecha = False
 
 		if nodo.getIzquierda()!= None:
@@ -225,42 +231,39 @@ class AVL(object):
 		else:
 			izquierda = False 
 
-
 		if derecha == False and izquierda == False:
 
-			return self.caso1(nodo)
+			self.reBalanceo(self.caso1(nodo))
+
 		if derecha != False and izquierda ==False:
 
-			return self.caso2(nodo)
+			self.reBalanceo(self.caso2(nodo))
 		if derecha == False and izquierda != False:
 
-			return self.caso2(nodo)
+			self.reBalanceo(self.caso2(nodo))
 		if derecha!= False and izquierda != False:
 
-			return self.caso3(nodo)
+			self.reBalanceo(self.caso3(nodo))
 
 	def caso1(self, nodo):
 
 		if nodo.getPapa() == None:	#Si se va a eliminar la raiz
 			self.root = None
-
+			return None
 		else:
 			#Se obtiene el papa, se obtienen sus hijos
 			nodoPapa = nodo.getPapa()
 			izquierda = nodoPapa.getIzquierda()
 			derecha = nodoPapa.getDerecha()
-
 			#Se elimina el hijo con el valor que se quiere borrar
 			if izquierda != None:
 				if izquierda.getValor() == nodo.getValor():
 					nodo.getPapa().setIzquierda(None)
-
-
 			if derecha != None:
 				if derecha.getValor() == nodo.getValor():
 					nodo.getPapa().setDerecha(None)
 			self.colocarAlturas(self.root)
-		return False
+		return nodoPapa
 
 	def caso2(self,nodo):
 
@@ -277,29 +280,36 @@ class AVL(object):
 				nodo.getPapa().setIzquierda(Actual)
 				Actual.setPapa(nodo.getPapa())
 				self.colocarAlturas(self.root)
-				return True
+
+				return Actual.getPapa()
 
 			if hijoderecho == nodo:
+
 				nodo.getPapa().setDerecha(Actual)
 				Actual.setPapa(nodo.getPapa())
 				self.colocarAlturas(self.root)
-				return True
+
+				return Actual.getPapa()
 		else:
 
 			der = nodo.getDerecha()
 			iz = nodo.getIzquierda()
+
 			if der!=None:
+
 				self.root = der
 				der.setPapa(None)
+				return der
 			elif iz!=None:
+
 				self.root = iz
 				iz.setPapa(None)
+				return iz
 			self.colocarAlturas(self.root)
 		self.colocarAlturas(self.root)
-		return False
+		return None
 
 	def caso3(self, nodo):
-
 		#Obtiene el ultimo a la izquierda
 		ultimoizquierda = self.recorrerIzquierda(nodo.getDerecha())
 
@@ -310,6 +320,7 @@ class AVL(object):
 
 			if nodo.getPapa() == None:
 				self.root = ultimoizquierda
+				return ultimoizquierda
 			else:
 
 				if nodo.getPapa().getDerecha() == nodo:
@@ -327,7 +338,7 @@ class AVL(object):
 			nodo.getDerecha().setPapa(ultimoizquierda)
 
 			self.colocarAlturas(self.root)
-			return True
+			return nodo.getPapa()
 
 		else:	#Si el nodo derecha no tiene hijo izquierdo.
 			nodoDerecho = nodo.getDerecha()
@@ -343,6 +354,7 @@ class AVL(object):
 			nodoDerecho.setPapa(nodo.getPapa())
 			nodoDerecho.setIzquierda(nodo.getIzquierda())
 			self.colocarAlturas(self.root)
+			return nodoDerecho
 		return False
 
 	def recorrerIzquierda(self, nodo):
@@ -351,29 +363,26 @@ class AVL(object):
 
 		return nodo 
 
-
 	def buscar(self, valor, nodo, padre):
-		if nodo!= None:
+		if nodo != None:
 			if padre == None:
 
-				if valor > nodo.getValor() :
+				if valor > nodo.getValor().getId() :
 					self.buscar(valor,nodo.getDerecha(),nodo)
-				elif valor < nodo.getValor() :
+				elif valor < nodo.getValor().getId() :
 					self.buscar(valor, nodo.getIzquierda(),nodo)
 				else:
 					self.retorno = nodo
 					return self.retorno
 
 			else:
-				if valor == nodo.getValor():
-
-					print "Hizo match "
+				if valor == nodo.getValor().getId():
 					self.match=True
 					self.retorno = nodo
 
 				else:
 					if self.match!=True:
-						if valor > nodo.getValor() :
+						if valor > nodo.getValor().getId() :
 							self.buscar(valor,nodo.getDerecha(),nodo)
 						else:
 
@@ -381,4 +390,115 @@ class AVL(object):
 		return self.retorno
 
 	def colocarAlturas(self, nodo):
-		nodo.obtenerAltura()
+		if nodo != None:
+			nodo.obtenerAltura()
+
+	def reBalanceo(self, nodo):
+		while nodo != None:
+
+			if self.estaDesbalanceado(nodo):
+
+				x = nodo
+				y = self.mayorHijo(nodo)
+				z = self.mayorHijo(y)
+
+				nodo = self.reestructuracion(x, y, z)
+				self.colocarAlturas(self.root)
+
+			if nodo != None:
+				nodo = nodo.getPapa()
+
+	def estaDesbalanceado(self, nodo):
+		if nodo.getFE() > 1 or nodo.getFE() < -1:
+			return True
+		else:
+			return False
+
+	def mayorHijo(self, nodo):
+		iz = None
+		der = None
+
+		if nodo != None:
+			if nodo.getIzquierda() != None:
+				iz = nodo.getIzquierda()
+			if nodo.getDerecha() != None:
+				der = nodo.getDerecha()
+			if iz != None and der != None:
+				if iz.getAltura() > der.getAltura():
+					return iz
+				elif iz.getAltura() < der.getAltura():
+					return der
+				else:
+					return der
+			elif iz != None:
+				return iz
+			elif der != None:
+				return der
+			else:
+				return None
+
+	def reestructuracion(self, x, y, z):
+		if x != None and y != None and z != None:
+
+			if x.getFE()<-1:
+				if y.getFE() == 1:
+
+					if self.root != x:
+						return self.RotacionDobleIzquierda(x)
+							
+					else:
+
+						self.root = self.RotacionDobleIzquierda(x)
+						return self.root
+
+				elif y.getFE() == -1:
+
+					if self.root != x:
+						return self.RotacionIzquierda(x)
+							
+					else:
+
+						self.root = self.RotacionIzquierda(x)
+						return self.root
+
+				elif y.getFE() == 0:
+
+					if self.root != x:
+						return self.RotacionIzquierda(x)
+							
+					else:
+
+						self.root = self.RotacionIzquierda(x)
+						return self.root
+
+
+			elif x.getFE() > 1:
+
+				if y.getFE() == -1:
+
+					if self.root != x:
+						return self.RotacionDobleDerecha(x)
+							
+					else:
+
+						self.root = self.RotacionDobleDerecha(x)
+						return self.root
+
+				elif y.getFE() == 1:
+
+					if self.root != x:
+						return self.RotacionDerecha(x)
+							
+					else:
+
+						self.root = self.RotacionDerecha(x)
+						return self.root
+				elif y.getFE() == 0:
+
+					if self.root != x:
+						return self.RotacionDerecha(x)
+							
+					else:
+
+						self.root = self.RotacionDerecha(x)
+						return self.root

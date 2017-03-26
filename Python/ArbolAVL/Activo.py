@@ -1,4 +1,6 @@
+
 class Activo(object):
+
 	def __init__(self):
 		self.identificador=None
 		self.nombre=None
@@ -18,4 +20,3 @@ class Activo(object):
 		return self.nombre
 	def getDescripcion(self):
 		return self.descripcion
-

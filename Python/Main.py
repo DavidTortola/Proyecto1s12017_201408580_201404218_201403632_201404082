@@ -5,16 +5,11 @@ matriz1 = mm.Matriz()
 from ArbolAVL import Arbol
 AVL= Arbol
 
-
 from ArbolAVL import Activo
 ac= Activo
 
 from MatrizDispersa import GeneradorID
-
-GI = GeneradorID
-
-
-
+gid = GeneradorID
 
 from MatrizDispersa import Usuario
 us = Usuario
@@ -22,23 +17,16 @@ us = Usuario
 from flask import Flask, request, Response
 app = Flask("Proyecto1")
 
-
-
-
-
-
 @app.route('/Matriz', methods = ['POST']) 
 def usuario2():
 
-	if str(request.form['tipo'])=="login":
+	if str(request.form['tipo'])=="buscar":
 		arreglo = str(request.form['informacion']).split("$")
 
 		aux = matriz1.buscar(arreglo[0],arreglo[3],arreglo[2])
-		if aux!= None:
-			return aux.getNombre()+"$"+aux.getUsuario()+"$"+aux.getContrasena()+ "$"+ aux.getX()+ "$"+aux.getY()
 
-		else:
-			return False
+
+		return "Nombre: "+aux.getNombre()+" Usuario: "+aux.getUsuario()+" Contrasena: "+aux.getContrasena()+ " Empresa: "+ aux.getX()+ " Departamento: "+aux.getY()
 
 	elif str(request.form['tipo'])=="registrar":
 
@@ -62,14 +50,11 @@ def usuario2():
 
 		arreglo = str(request.form['informacion']).split("$")
 
-		generador = GI.GeneradorID()
-
+		generadorid = gid.GeneradorID()
 
 		activo = ac.Activo()
 
-		identificador =str(generador.generarID(15))
-
-		activo.setId(identificador)
+		activo.setId(generadorid.obtenerID(15))
 
 		activo.setUsuario(arreglo[0])
 
@@ -87,34 +72,13 @@ def usuario2():
 
 		activo.setUsuario(usuario)
 
-		arbol.impreArbol(arbol.getRoot(), None)
-
-		return "Identificador de Activo: "+ identificador
-
-	elif str(request.form['tipo'])=="generarid":
-
-		generador = GI.GeneradorID()
-
-		identificador =str(generador.generarID(15))
-
-		return identificador
-
-	elif str(request.form['tipo'])=="eliminarUsuario":
-
-		arreglo = str(request.form['informacion']).split("$")
-		
-		matriz1.eliminar(arreglo[2],arreglo[1],arreglo[0])
+		return "Agregado"
 
 
 if __name__ == "__main__":
-  app.run(debug=True, host='0.0.0.0')
-
+  app.run(debug=True, host='192.168.43.101')
 
 '''
-
-
-
-
 usuario2=us.Usuario()
 
 usuario2.setNombre("Andree")

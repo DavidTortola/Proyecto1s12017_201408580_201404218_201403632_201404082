@@ -79,8 +79,8 @@ class NodoArbol(object):
 		val2 = 0
 		fe = 0
 		if self.izquierda != None:
-			val1 = self.izquierda.getAltura()
+			val1 = self.izquierda.getAltura()+1
 		if self.derecha != None:
-			val2 = self.derecha.getAltura()
-
-		return (val2-val1)
+			val2 = self.derecha.getAltura()+1
+		fe = val2-val1
+		return fe

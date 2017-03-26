@@ -1,11 +1,11 @@
-
+<<<<<<< HEAD
 import GeneradorID
 GI = GeneradorID
 
 generador = GI.GeneradorID()
 
 print generador.generarID(15)
-'''
+=======
 import Matriz 
 ma = Matriz
 matriz = ma.Matriz()
@@ -27,5 +27,4 @@ matriz.agregar(usuario.getY(),usuario.getX(),usuario)
 matriz.Graficar()
 
 aux = matriz.buscar(usuario.getUsuario(),usuario.getX(),usuario.getY())
->>>>>>> master'''
-
+>>>>>>> master
