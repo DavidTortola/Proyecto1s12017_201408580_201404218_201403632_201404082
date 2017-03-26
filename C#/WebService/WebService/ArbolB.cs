@@ -9,7 +9,7 @@ namespace WebService
 {
     public class ArbolB
     {
-         List<NodoArbolB> lstnodos = new List<NodoArbolB>();
+        List<Rentas> lstnodos = new List<Rentas>();
 
         public NodoArbolB raiz;
         public ArbolB()
@@ -29,28 +29,10 @@ namespace WebService
             {
                 int i = 1;
                 while (i <= node.ULlave && (string.Compare(node.llaves[i - 1].identificador, renta.identificador) < 0))
-  
+
                     i++;
                 if (i > node.ULlave || (string.Compare(node.llaves[i - 1].identificador, renta.identificador) > 0))
                     return buscar(renta, node.punteros[i - 1]);
-                else
-                    return node;
-            }
-            else
-            {
-                return null;
-            }
-        }
-        private NodoArbolB buscarActivo(Rentas renta, NodoArbolB node)
-        {
-            if (node != null)
-            {
-                int i = 1;
-                while (i <= node.ULlave && (string.Compare(node.llaves[i - 1].idActivo, renta.idActivo) < 0))
-
-                    i++;
-                if (i > node.ULlave || (string.Compare(node.llaves[i - 1].idActivo, renta.idActivo) > 0))
-                    return buscarActivo(renta, node.punteros[i - 1]);
                 else
                     return node;
             }
@@ -290,7 +272,7 @@ namespace WebService
             int i = 0;
             while (i < nodo.ULlave)
             {
-                if (nodo.llaves[i].idActivo.Equals(renta.idActivo))
+                if (nodo.llaves[i].identificador.Equals(renta.identificador))
                 {
                     while (i < nodo.ULlave - 1)
                     {
@@ -507,29 +489,120 @@ namespace WebService
                 combinar(izquierda(nodo));
             }
         }
+        public void Lista(Rentas renta, NodoArbolB nodo)
+        {
+
+            if (nodo.punteros != null)
+            {
+                for (int i = 0; i < nodo.punteros.Length - 1; i++)
+                {
+                    if (nodo.punteros[i] != null)
+                        Lista(renta, nodo.punteros[i]);
+                }
+            }
+
+            for (int j = 0; j < nodo.llaves.Length - 1; j++)
+            {
+                if (nodo.llaves[j] != null)
+                {
+                    if (nodo.llaves[j].idActivo.Equals(renta.idActivo))
+                    {
+                        Console.WriteLine("Raiz: " + nodo.llaves[j].identificador + " Activo:" + nodo.llaves[j].idActivo);
+                        lstnodos.Add(nodo.llaves[j]);
+
+                    }
+                }
+
+
+            }
+        }
+
+        //    for (int i = 0; i < nodo.punteros.Length - 1; i++)
+        //    {
+        //        if (nodo.punteros[i] != null)
+        //        {
+        //            for (int h = 0; h < nodo.punteros[i].punteros.Length - 1; h++)
+        //            {
+        //                if (nodo.punteros[i].punteros[h] != null)
+        //                {
+        //                    Lista(renta, nodo.punteros[i]);
+        //                }
+        //                else
+        //                {
+        //                    for (int j = 0; j < nodo.llaves.Length - 1; j++)
+        //                    {
+        //                        if (nodo.punteros[i].llaves[j] != null)
+        //                        {
+        //                            if (nodo.punteros[i].llaves[j].idActivo.Equals(renta.idActivo))
+        //                            {
+        //                                Console.WriteLine("Raiz: " + nodo.punteros[i].llaves[j].identificador + " Activo:" + nodo.punteros[i].llaves[j].idActivo);
+        //                                lstnodos.Add(nodo.punteros[i].llaves[j]);
+
+        //                            }
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
+
+
+
+        //for (int i = 0; i < nodo.punteros.Length - 1; i++)
+        //{
+        //    if (nodo.punteros[i] != null)
+        //    {
+        //        if (nodo.punteros[i].punteros != null)
+        //        {
+        //            Lista(renta, nodo.punteros[i]);
+        //        }
+        //        for (int j = 0; j < nodo.llaves.Length - 1; j++)
+        //        {
+        //            if (nodo.punteros[i].llaves[j] != null)
+        //            {
+        //                if (nodo.punteros[i].llaves[j].idActivo.Equals(renta.idActivo))
+        //                {
+        //                    Console.WriteLine("Raiz: " + nodo.punteros[i].llaves[j].identificador + " Activo:" + nodo.punteros[i].llaves[j].idActivo);
+        //                    lstnodos.Add(nodo.punteros[i].llaves[j]);
+
+        //                }
+
+        //            }
+        //        }
+        //    }
+        //}
+
+
 
         //METODO ELIMINAR , ELIMINA ID EN EL ARBOL SEGUN PARAMETRO ENVIADO
         public void Remover(Rentas renta)
         {
             //BUSCA LA CLAVE
-            while (buscarActivo(renta, this.raiz).llaves != null)
+
+            Lista(renta, this.raiz);
+
+            for (int i = 0; i < lstnodos.Count; i++)
             {
-                NodoArbolB nodo = buscarActivo(renta, this.raiz);
+
+
+                NodoArbolB nodo = buscar(lstnodos[i], this.raiz);
+
                 if (nodo != null)
                 {
                     //ELIMINACION SI Y SOLO SI EL NODO NO ES HOJA 
                     if (nodo.hoja == false)
                     {
-                        NodoArbolB hoja = PrecedenciaNodo(renta, nodo);
+                        NodoArbolB hoja = PrecedenciaNodo(lstnodos[i], nodo);
                         Rentas presedencia = hoja.llaves[0];
-                        ReemplazarLlave(nodo, renta, presedencia);
+                        ReemplazarLlave(nodo, lstnodos[i], presedencia);
                         nodo = hoja;
                         EliminarHoja(hoja, presedencia);
                     }
                     else
                     {
                         //ELIMINACION NODO EN HOJA 
-                        EliminarHoja(nodo, renta);
+                        EliminarHoja(nodo, lstnodos[i]);
                     }
 
                     //ALGORITMO QUE SE MANTIENE EJECUTANDO DURANTE LA ELIMINACION 
@@ -539,17 +612,17 @@ namespace WebService
                     {
                         if (VerificarMinimo(nodo))
                         {
-                            return;
+                            break;
                         }
                         else if (derecha(nodo) != null && derecha(nodo).ULlave > 2)
                         {
                             TomardeDerecha(nodo);
-                            return;
+                            break;
                         }
                         else if (izquierda(nodo) != null && izquierda(nodo).ULlave > 2)
                         {
                             TomardeIzquierda(nodo);
-                            return;
+                            break;
                         }
                         else if (nodo.Padre == this.raiz)
                         {
@@ -568,15 +641,15 @@ namespace WebService
                             {
                                 combinar(nodo);
                             }
-                            return;
+                            break;
                         }
                         else
                         {
                             combinar(nodo);
                             nodo = nodo.Padre;
+
                         }
                     }
-
                 }
             }
         }
