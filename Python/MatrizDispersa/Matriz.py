@@ -526,38 +526,40 @@ class Matriz(object):
 			f.write(";\n")
 
 	def buscar(self,nombreusuario,empresa,departamento):
-
-		derecha = self.ListaHorizontal.getInicio()
-
-		Actual=derecha
-
-		while derecha!= None:
-
-			abajo = self.ListaVertical.getInicio()
-
-			while abajo!= None:
-
-				if Actual.getAbajo()!= None:
-
-					Actual = Actual.getAbajo()
-
-					Auxiliar=Actual.getValor().getPrimero()
-
-					while Auxiliar!=None:
-
-						if nombreusuario== Auxiliar.getValor().getUsuario() and Auxiliar.getValor().getY()==departamento and Auxiliar.getValor().getX() == empresa:
-							
-							return Auxiliar.getValor()
-						else:
-
-							Auxiliar=Auxiliar.getSiguiente()
-
-
-				abajo = abajo.getAbajo()
-
-			derecha=derecha.getDerecha()
+		if self.tamano==0:
+			return None
+		else:
+			derecha = self.ListaHorizontal.getInicio()
 
 			Actual=derecha
+
+			while derecha!= None:
+
+				abajo = self.ListaVertical.getInicio()
+
+				while abajo!= None:
+
+					if Actual.getAbajo()!= None:
+
+						Actual = Actual.getAbajo()
+
+						Auxiliar=Actual.getValor().getPrimero()
+
+						while Auxiliar!=None:
+
+							if nombreusuario== Auxiliar.getValor().getUsuario() and abajo.getValor()==departamento and derecha.getValor() == empresa:
+							
+								return Auxiliar.getValor()
+							else:
+
+								Auxiliar=Auxiliar.getSiguiente()
+
+
+					abajo = abajo.getAbajo()
+
+				derecha=derecha.getDerecha()
+
+				Actual=derecha
 
 		return None
 

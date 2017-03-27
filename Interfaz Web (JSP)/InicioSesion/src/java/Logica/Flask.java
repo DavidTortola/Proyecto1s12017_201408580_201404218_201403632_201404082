@@ -30,18 +30,17 @@ public class Flask {
         //Metodo para buscar en la matriz
         boolean estado;
         String arreglo = user + "$" + pass + "$" + empresa + "$" + departamento;
-        String[] devolucion = sendText(arreglo, "login").split("$");
-
-        if (sendText(arreglo, "login").equals("False")) {
-            estado = false;
+        String cadena = sendText(arreglo, "login");
+        if (cadena.equals("false")) {
+            return false;
         } else {
+            String[] devolucion = cadena.split(",");
             if (devolucion[1].equals(user) && devolucion[2].equals(pass)) {
-                estado = true;
+                return true;
             } else {
-                estado = false;
+                return false;
             }
         }
-        return estado;
     }
 
     public String Registrar(String user, String pass, String nombre, String empresa, String departamento) {
@@ -50,10 +49,32 @@ public class Flask {
 
     }
 
+    public String[] obtenerIdArbol(String user, String empresa, String departamento) {
+        
+        String[] valores = sendText(user, empresa, departamento, "obtenerdatos").split(",");
+
+        return valores;
+    }
+
+    public String EliminarActivo(String user, String empresa, String departamento, String id) {
+
+        sendText(user, empresa, departamento, id, "eliminaractivo");
+        
+        new WebService1().getWebService1Soap().eliminar(id);
+
+        return "Eliminado";
+    }
+
     public String RegistrarActivo(String usuario, String producto, String Descripcion, String empresa, String departamento) {
         String arreglo = usuario + "$" + producto + "$" + Descripcion + "$" + empresa + "$" + departamento;
 
         return sendText(arreglo, "registrarActivo");
+
+    }
+    public String modificarActivo(String usuario,String id, String producto, String Descripcion, String empresa, String departamento) {
+        String arreglo = usuario + "$" + id + "$" + producto + "$" + Descripcion + "$" + empresa + "$" + departamento;
+
+        return sendText(arreglo, "modificaractivo");
 
     }
 
@@ -87,6 +108,31 @@ public class Flask {
         RequestBody formBody = new FormEncodingBuilder()
                 .add("tipo", tipo)
                 .add("informacion", informacion)
+                .build();
+        String r = getString("Matriz", formBody);
+        return r;
+    }
+
+    public static String sendText(String usuario, String empresa, String departamento, String tipo) {
+
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("tipo", tipo)
+                .add("usuario", usuario)
+                .add("empresa", empresa)
+                .add("departamento", departamento)
+                .build();
+        String r = getString("Matriz", formBody);
+        return r;
+    }
+
+    public static String sendText(String usuario, String empresa, String departamento, String id, String tipo) {
+
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("tipo", tipo)
+                .add("usuario", usuario)
+                .add("empresa", empresa)
+                .add("departamento", departamento)
+                .add("id", id)
                 .build();
         String r = getString("Matriz", formBody);
         return r;

@@ -60,7 +60,7 @@ public class Principal {
         //TODO write your implementation code here:
         return (new Flask().Login(user, pass, empresa, departamento));
     }
-
+    
 
     /**
      * Web service operation
@@ -91,6 +91,26 @@ public class Principal {
     public String EliminarTransaccion(@WebParam(name = "idActivo") String idActivo) {
         //TODO write your implementation code here:
         return (new WebService1().getWebService1Soap().eliminar(idActivo));
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "ObtenerIdArbol")
+    public String[] ObtenerIdArbol(@WebParam(name = "usuario") String usuario, @WebParam(name = "empresa") String empresa, @WebParam(name = "departamento") String departamento) {
+        //TODO write your implementation code here:
+        String [] valores = new Flask().obtenerIdArbol(usuario, empresa, departamento);
+        return valores;
+        
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "ModificarActivo")
+    public String ModificarActivo(@WebParam(name = "usuario") String usuario, @WebParam(name = "id") String id, @WebParam(name = "producto") String producto, @WebParam(name = "descripcion") String descripcion, @WebParam(name = "empresa") String empresa, @WebParam(name = "departamento") String departamento) {
+        //TODO write your implementation code here:
+        return (new Flask().modificarActivo(usuario, id, producto, descripcion, empresa, departamento));
     }
     
 

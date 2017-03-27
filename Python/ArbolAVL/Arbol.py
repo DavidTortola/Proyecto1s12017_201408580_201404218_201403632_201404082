@@ -20,6 +20,7 @@ class AVL(object):
 		self.Aux = None
 		self.Aux2 = None
 		self.apuntado2 = False
+		self.informacion = None
 
 	#Metodos sets y gets.
 	#--------------------
@@ -502,3 +503,19 @@ class AVL(object):
 
 						self.root = self.RotacionDerecha(x)
 						return self.root
+
+	def obtenerDatos(self):
+		self.informacion=None
+		self.obtenerInformacion(self.root)
+		return self.informacion
+
+	def obtenerInformacion(self, nodo):
+		if nodo != None:
+			if self.informacion == None:
+				self.informacion =  nodo.getValor().getId() +"@" +nodo.getValor().getNombre() +"@" +nodo.getValor().getDescripcion() 
+			else:
+				self.informacion =  self.informacion +"," +nodo.getValor().getId() +"@" +nodo.getValor().getNombre() +"@" +nodo.getValor().getDescripcion() 
+
+			self.obtenerInformacion(nodo.getDerecha())
+			self.obtenerInformacion(nodo.getIzquierda())
+			
