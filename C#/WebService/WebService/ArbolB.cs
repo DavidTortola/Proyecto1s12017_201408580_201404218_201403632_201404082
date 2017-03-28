@@ -767,6 +767,36 @@ namespace WebService
                 }
             }
         }
+        public void setRenta(Rentas re){
+            setRenta(re, raiz);
+        }
+        public void setRenta(Rentas renta, NodoArbolB nodo)
+        {
+
+            if (nodo.punteros != null)
+            {
+                for (int i = 0; i < nodo.punteros.Length - 1; i++)
+                {
+                    if (nodo.punteros[i] != null)
+                        setRenta(renta, nodo.punteros[i]);
+                }
+            }
+
+            for (int j = 0; j < nodo.llaves.Length - 1; j++)
+            {
+                if (nodo.llaves[j] != null)
+                {
+                    if (nodo.llaves[j].idActivo.Equals(renta.idActivo) && nodo.llaves[j].rentado == true)
+                    {
+                        nodo.llaves[j].rentado = false;
+
+                    }
+                }
+
+
+            }
+        }
+
         public List<string> ActivosActivos(string usuario, string empresa, string departamento)
         {
             Rentas rent = new Rentas();

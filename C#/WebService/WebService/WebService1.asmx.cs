@@ -15,10 +15,10 @@ namespace WebService
 
     // Para permitir que se llame a este servicio web desde un script, usando ASP.NET AJAX, quite la marca de comentario de la línea siguiente. 
     // [System.Web.Script.Services.ScriptService]
-    public class WebService1: System.Web.Services.WebService
+    public class WebService1 : System.Web.Services.WebService
     {
         public static ArbolB arbolB = new ArbolB();
-  
+
 
         [WebMethod]
         public string HelloWorld()
@@ -27,14 +27,15 @@ namespace WebService
         }
 
         [WebMethod]
-        public string Prueba(string par) {
+        public string Prueba(string par)
+        {
 
-            return par +  " Esto es en C#";
+            return par + " Esto es en C#";
 
         }
 
         [WebMethod]
-        public string insertar(string idrenta, string idactivo,string nombre,string descripcion, string user, string empresa, string departamento, string fecha, string tiempo)
+        public string insertar(string idrenta, string idactivo, string nombre, string descripcion, string user, string empresa, string departamento, string fecha, string tiempo)
         {
 
             Rentas renta = new Rentas();
@@ -56,7 +57,8 @@ namespace WebService
         }
 
         [WebMethod]
-        public string eliminar(string idActivo) {
+        public string eliminar(string idActivo)
+        {
             Rentas renta = new Rentas();
             renta.idActivo = idActivo;
             arbolB.Remover(renta);
@@ -66,11 +68,21 @@ namespace WebService
         }
 
         [WebMethod]
-        public List<string> getActivos(string usuario,string empresa, string departamento)
+        public List<string> getActivos(string usuario, string empresa, string departamento)
         {
             List<string> list = arbolB.ActivosActivos(usuario, empresa, departamento);
 
             return list;
+
+        }
+
+        [WebMethod]
+        public void regresarActivo(string idActivo)
+        {
+            Rentas renta = new Rentas();
+            renta.idActivo = idActivo;
+            arbolB.setRenta(renta);
+
 
         }
 
