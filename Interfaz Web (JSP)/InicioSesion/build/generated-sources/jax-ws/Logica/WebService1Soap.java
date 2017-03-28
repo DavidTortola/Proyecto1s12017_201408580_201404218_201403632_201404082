@@ -50,12 +50,14 @@ public interface WebService1Soap {
 
     /**
      * 
+     * @param descripcion
      * @param idactivo
      * @param fecha
      * @param idrenta
      * @param tiempo
      * @param departamento
      * @param empresa
+     * @param nombre
      * @param user
      * @return
      *     returns java.lang.String
@@ -69,6 +71,10 @@ public interface WebService1Soap {
         String idrenta,
         @WebParam(name = "idactivo", targetNamespace = "http://tempuri.org/")
         String idactivo,
+        @WebParam(name = "nombre", targetNamespace = "http://tempuri.org/")
+        String nombre,
+        @WebParam(name = "descripcion", targetNamespace = "http://tempuri.org/")
+        String descripcion,
         @WebParam(name = "user", targetNamespace = "http://tempuri.org/")
         String user,
         @WebParam(name = "empresa", targetNamespace = "http://tempuri.org/")
@@ -91,6 +97,37 @@ public interface WebService1Soap {
     @RequestWrapper(localName = "eliminar", targetNamespace = "http://tempuri.org/", className = "Logica.Eliminar")
     @ResponseWrapper(localName = "eliminarResponse", targetNamespace = "http://tempuri.org/", className = "Logica.EliminarResponse")
     public String eliminar(
+        @WebParam(name = "idActivo", targetNamespace = "http://tempuri.org/")
+        String idActivo);
+
+    /**
+     * 
+     * @param departamento
+     * @param usuario
+     * @param empresa
+     * @return
+     *     returns Logica.ArrayOfString
+     */
+    @WebMethod(action = "http://tempuri.org/getActivos")
+    @WebResult(name = "getActivosResult", targetNamespace = "http://tempuri.org/")
+    @RequestWrapper(localName = "getActivos", targetNamespace = "http://tempuri.org/", className = "Logica.GetActivos")
+    @ResponseWrapper(localName = "getActivosResponse", targetNamespace = "http://tempuri.org/", className = "Logica.GetActivosResponse")
+    public ArrayOfString getActivos(
+        @WebParam(name = "usuario", targetNamespace = "http://tempuri.org/")
+        String usuario,
+        @WebParam(name = "empresa", targetNamespace = "http://tempuri.org/")
+        String empresa,
+        @WebParam(name = "departamento", targetNamespace = "http://tempuri.org/")
+        String departamento);
+
+    /**
+     * 
+     * @param idActivo
+     */
+    @WebMethod(action = "http://tempuri.org/regresarActivo")
+    @RequestWrapper(localName = "regresarActivo", targetNamespace = "http://tempuri.org/", className = "Logica.RegresarActivo")
+    @ResponseWrapper(localName = "regresarActivoResponse", targetNamespace = "http://tempuri.org/", className = "Logica.RegresarActivoResponse")
+    public void regresarActivo(
         @WebParam(name = "idActivo", targetNamespace = "http://tempuri.org/")
         String idActivo);
 

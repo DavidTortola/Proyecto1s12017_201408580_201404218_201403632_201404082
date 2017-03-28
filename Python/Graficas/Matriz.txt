@@ -3,22 +3,22 @@ node [fontcolor="white", height=0.5, color="white"]
 [shape=tripleoctagon, style=filled, color=blue]rankdir=LR 
 edge  [color="black", dir=fordware]
 inicial[style ="filled"; label="inicial";pos= "0,0!"] 
-"d"[style ="filled"; label="d";pos= "1,0!"]
-c[style ="filled"; label=c;pos= "0,1!"]
-a[shape=doubleoctagon,style ="filled"; label=a;pos= "1,1!"]
+"empresa1"[style ="filled"; label="empresa1";pos= "1,0!"]
+departamento1[style ="filled"; label=departamento1;pos= "0,1!"]
+david[shape=doubleoctagon,style ="filled"; label=david;pos= "1,1!"]
 
- inicial->"d"->inicial->c->inicial;
-"d";"d";
-c;
-c;
-"d"->a;
-
-
-
-c->a;
+ inicial->"empresa1"->inicial->departamento1->inicial;
+"empresa1";"empresa1";
+departamento1;
+departamento1;
+"empresa1"->david;
 
 
 
-a->"d";
-a->c;
+departamento1->david;
+
+
+
+david->"empresa1";
+david->departamento1;
 }

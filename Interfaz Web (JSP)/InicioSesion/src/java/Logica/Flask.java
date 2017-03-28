@@ -89,6 +89,12 @@ public class Flask {
         return "Eliminado";
     }
 
+    
+    public String rentarActivo(String usuario, String empresa, String departamento, String idActivo){
+        String arreglo = usuario +"$" +empresa +"$" +departamento +"$" +idActivo;
+        sendText(arreglo, "rentarActivo");
+        return "Rentado";
+    }
     public static String getString(String metodo, RequestBody formBody) {
 
         try {

@@ -23,10 +23,6 @@ from flask import Flask, request, Response
 app = Flask("Proyecto1")
 
 
-
-
-
-
 @app.route('/Matriz', methods = ['POST']) 
 def usuario2():
 
@@ -134,58 +130,31 @@ def usuario2():
 
 		arbol= usuario.getArbol()
 
-		aux = arbol.buscar(arreglo[1],,arbol.getRoot(),None)
+		aux = arbol.buscar(arreglo[1],arbol.getRoot(),None)
 
 		aux.setNombre(arreglo[2])
 		aux.setDescripcion(arreglo[3])
 		
 		arbol.impreArbol(arbol.getRoot(), None)
 
-		return "Activo Modificado: "+ identificador
+		return "Activo Modificado"
 
+	elif str(request.form['tipo'])=="rentarActivo":
+		arreglo = str(request.form['informacion']).split("$")
+		usuario = matriz1.buscar(arreglo[0],arreglo[1],arreglo[2])
+		arbol = usuario.getArbol()
+		arbol.eliminar(arreglo[3],arbol.getRoot(),None)
+		return "Activo Rentado"
+		
+	elif str(request.form['tipo'])=="devolverActivo":
+		arrogle = str(request.form['informacion']).split("$")
+		usuario = matriz1.buscar(arreglo[0],arreglo[1],arreglo[2])
+		arbol = usuario.getArbol()
+		activoTemp = ac.Activo()
+		activoTemp.setNombre(arreglo[3])
+		activoTemp.setDescripcion(arreglo[4])
+		activoTemp.setId(arreglo[5])
+		arbol.insertar(activoTemp)
 
 if __name__ == "__main__":
   app.run(debug=True, host='0.0.0.0')
-
-
-'''
-
-
-
-
-usuario2=us.Usuario()
-
-usuario2.setNombre("Andree")
-usuario2.setUsuario("bobo")
-usuario2.setContrasena("1234")
-
-arbol.insertar("ab")
-arbol.insertar("ac")
-arbol.insertar("ad")
-
-usuario2.setArbol(arbol)
-
-
-
-matriz1.agregar("aaa","empresa1",usuario)
-matriz1.agregar("aaa","empresa1",usuario2)
-
-usuario3=us.Usuario()
-usuario3.setNombre("mario")
-usuario3.setUsuario("juancho")
-usuario3.setContrasena("popo")
-usuario3.setArbol(arbol)
-
-matriz1.agregar("bbb","empresa3",usuario3)
-
-user=matriz1.buscar("fjakls")
-if user != None:
-
-	print "Nombre: "+user.getNombre()+" \nUsuario: "+user.getUsuario()+" \nContrasena: "+user.getContrasena()
-	arbol2 = user.getArbol()
-	arbol2.impreArbol(arbol2.getRoot(), None)
-else:
-	print "No se encontro ninguno"
-matriz1.Graficar()
-'''
-

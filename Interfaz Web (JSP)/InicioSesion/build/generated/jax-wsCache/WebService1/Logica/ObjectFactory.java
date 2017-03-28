@@ -93,4 +93,44 @@ public class ObjectFactory {
         return new EliminarResponse();
     }
 
+    /**
+     * Create an instance of {@link GetActivos }
+     * 
+     */
+    public GetActivos createGetActivos() {
+        return new GetActivos();
+    }
+
+    /**
+     * Create an instance of {@link GetActivosResponse }
+     * 
+     */
+    public GetActivosResponse createGetActivosResponse() {
+        return new GetActivosResponse();
+    }
+
+    /**
+     * Create an instance of {@link ArrayOfString }
+     * 
+     */
+    public ArrayOfString createArrayOfString() {
+        return new ArrayOfString();
+    }
+
+    /**
+     * Create an instance of {@link RegresarActivo }
+     * 
+     */
+    public RegresarActivo createRegresarActivo() {
+        return new RegresarActivo();
+    }
+
+    /**
+     * Create an instance of {@link RegresarActivoResponse }
+     * 
+     */
+    public RegresarActivoResponse createRegresarActivoResponse() {
+        return new RegresarActivoResponse();
+    }
+
 }

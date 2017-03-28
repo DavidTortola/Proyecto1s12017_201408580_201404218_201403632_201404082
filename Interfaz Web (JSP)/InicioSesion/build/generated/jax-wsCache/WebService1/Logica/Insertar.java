@@ -19,6 +19,8 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence&gt;
  *         &lt;element name="idrenta" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="idactivo" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="nombre" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="descripcion" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="user" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="empresa" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="departamento" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
@@ -36,6 +38,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
     "idrenta",
     "idactivo",
+    "nombre",
+    "descripcion",
     "user",
     "empresa",
     "departamento",
@@ -47,6 +51,8 @@ public class Insertar {
 
     protected String idrenta;
     protected String idactivo;
+    protected String nombre;
+    protected String descripcion;
     protected String user;
     protected String empresa;
     protected String departamento;
@@ -99,6 +105,54 @@ public class Insertar {
      */
     public void setIdactivo(String value) {
         this.idactivo = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad nombre.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getNombre() {
+        return nombre;
+    }
+
+    /**
+     * Define el valor de la propiedad nombre.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setNombre(String value) {
+        this.nombre = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad descripcion.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    /**
+     * Define el valor de la propiedad descripcion.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setDescripcion(String value) {
+        this.descripcion = value;
     }
 
     /**

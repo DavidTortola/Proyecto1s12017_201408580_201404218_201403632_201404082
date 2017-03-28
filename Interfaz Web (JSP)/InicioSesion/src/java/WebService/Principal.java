@@ -5,9 +5,12 @@
  */
 package WebService;
 
+import Logica.ArrayOfString;
 import Logica.Flask;
 import Logica.WebService1;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -61,18 +64,6 @@ public class Principal {
         return (new Flask().Login(user, pass, empresa, departamento));
     }
 
-    /**
-     * Web service operation
-     */
-    @WebMethod(operationName = "InsertarAB")
-    public String InsertarAB(@WebParam(name = "idActivo") String idActivo, @WebParam(name = "usuario") String usuario, @WebParam(name = "empresa") String empresa, @WebParam(name = "departamento") String departamento, @WebParam(name = "tiempo") String tiempo) {
-        //TODO write your implementation code here:
-        Date date = new Date();
-        String id = (new Flask().GenerarID());
-        String fecha = date.toString();
-        String gg = (new WebService1().getWebService1Soap().insertar(id, idActivo, usuario, empresa, departamento, fecha, tiempo));
-        return "Identificador de Renta: " + id + "  " + gg;
-    }
 
     /**
      * Web service operation
@@ -119,6 +110,30 @@ public class Principal {
     public String EliminarActivo(@WebParam(name = "usuario") String usuario, @WebParam(name = "id") String id, @WebParam(name = "empresa") String empresa, @WebParam(name = "deartamento") String deartamento) {
         //TODO write your implementation code here:
         return new Flask().EliminarActivo(usuario, empresa, deartamento, id);
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "rentar")
+    public String rentar(@WebParam(name = "idActivo") String idActivo, @WebParam(name = "usuario") String usuario, @WebParam(name = "empresa") String empresa, @WebParam(name = "departamento") String departamento, @WebParam(name = "descripcion") String descripcion, @WebParam(name = "nombre") String nombre, @WebParam(name = "tiempo") String tiempo) {
+        //TODO write your implementation code here:
+        Date date = new Date();
+        String id = (new Flask().GenerarID());
+        String fecha = date.toString();
+        String gg = (new WebService1().getWebService1Soap().insertar(id, idActivo,nombre, descripcion, usuario, empresa, departamento, fecha, tiempo));
+        new Flask().rentarActivo(usuario, empresa, departamento, idActivo);
+        return "Identificador de Renta: " + id + "  " + gg;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getRentasDisponibles")
+    public String getRentasDisponibles(@WebParam(name = "usuario") String usuario, @WebParam(name = "empresa") String empresa, @WebParam(name = "departamento") String departamento) {
+        //TODO write your implementation code here:
+        List<String> gg = (new WebService1().getWebService1Soap().getActivos(usuario, empresa, departamento)).getString();
+        return gg.get(0);
     }
     
 }

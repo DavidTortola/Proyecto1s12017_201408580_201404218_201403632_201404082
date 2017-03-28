@@ -31,6 +31,8 @@
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="idrenta" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="idactivo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="nombre" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="descripcion" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="user" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="empresa" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="departamento" type="s:string" />
@@ -60,6 +62,37 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="getActivos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="empresa" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="departamento" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getActivosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getActivosResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="regresarActivo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="idActivo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="regresarActivoResponse">
+        <s:complexType />
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="HelloWorldSoapIn">
@@ -86,6 +119,18 @@
   <wsdl:message name="eliminarSoapOut">
     <wsdl:part name="parameters" element="tns:eliminarResponse" />
   </wsdl:message>
+  <wsdl:message name="getActivosSoapIn">
+    <wsdl:part name="parameters" element="tns:getActivos" />
+  </wsdl:message>
+  <wsdl:message name="getActivosSoapOut">
+    <wsdl:part name="parameters" element="tns:getActivosResponse" />
+  </wsdl:message>
+  <wsdl:message name="regresarActivoSoapIn">
+    <wsdl:part name="parameters" element="tns:regresarActivo" />
+  </wsdl:message>
+  <wsdl:message name="regresarActivoSoapOut">
+    <wsdl:part name="parameters" element="tns:regresarActivoResponse" />
+  </wsdl:message>
   <wsdl:portType name="WebService1Soap">
     <wsdl:operation name="HelloWorld">
       <wsdl:input message="tns:HelloWorldSoapIn" />
@@ -102,6 +147,14 @@
     <wsdl:operation name="eliminar">
       <wsdl:input message="tns:eliminarSoapIn" />
       <wsdl:output message="tns:eliminarSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getActivos">
+      <wsdl:input message="tns:getActivosSoapIn" />
+      <wsdl:output message="tns:getActivosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="regresarActivo">
+      <wsdl:input message="tns:regresarActivoSoapIn" />
+      <wsdl:output message="tns:regresarActivoSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WebService1Soap" type="tns:WebService1Soap">
@@ -142,6 +195,24 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="getActivos">
+      <soap:operation soapAction="http://tempuri.org/getActivos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="regresarActivo">
+      <soap:operation soapAction="http://tempuri.org/regresarActivo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="WebService1Soap12" type="tns:WebService1Soap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -174,6 +245,24 @@
     </wsdl:operation>
     <wsdl:operation name="eliminar">
       <soap12:operation soapAction="http://tempuri.org/eliminar" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getActivos">
+      <soap12:operation soapAction="http://tempuri.org/getActivos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="regresarActivo">
+      <soap12:operation soapAction="http://tempuri.org/regresarActivo" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
