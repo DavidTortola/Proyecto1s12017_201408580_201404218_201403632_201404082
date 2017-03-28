@@ -60,7 +60,6 @@ public class Principal {
         //TODO write your implementation code here:
         return (new Flask().Login(user, pass, empresa, departamento));
     }
-    
 
     /**
      * Web service operation
@@ -71,8 +70,8 @@ public class Principal {
         Date date = new Date();
         String id = (new Flask().GenerarID());
         String fecha = date.toString();
-       String gg = (new WebService1().getWebService1Soap().insertar(id, idActivo, usuario, empresa, departamento, fecha, tiempo));
-        return "Identificador de Renta: " + id+ "  " + gg;
+        String gg = (new WebService1().getWebService1Soap().insertar(id, idActivo, usuario, empresa, departamento, fecha, tiempo));
+        return "Identificador de Renta: " + id + "  " + gg;
     }
 
     /**
@@ -99,7 +98,7 @@ public class Principal {
     @WebMethod(operationName = "ObtenerIdArbol")
     public String[] ObtenerIdArbol(@WebParam(name = "usuario") String usuario, @WebParam(name = "empresa") String empresa, @WebParam(name = "departamento") String departamento) {
         //TODO write your implementation code here:
-        String [] valores = new Flask().obtenerIdArbol(usuario, empresa, departamento);
+        String[] valores = new Flask().obtenerIdArbol(usuario, empresa, departamento);
         return valores;
         
     }
@@ -112,6 +111,14 @@ public class Principal {
         //TODO write your implementation code here:
         return (new Flask().modificarActivo(usuario, id, producto, descripcion, empresa, departamento));
     }
-    
 
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "EliminarActivo")
+    public String EliminarActivo(@WebParam(name = "usuario") String usuario, @WebParam(name = "id") String id, @WebParam(name = "empresa") String empresa, @WebParam(name = "deartamento") String deartamento) {
+        //TODO write your implementation code here:
+        return new Flask().EliminarActivo(usuario, empresa, deartamento, id);
+    }
+    
 }
