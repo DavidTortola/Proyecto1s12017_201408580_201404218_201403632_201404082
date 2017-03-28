@@ -10,6 +10,7 @@ namespace WebService
     public class ArbolB
     {
         List<Rentas> lstnodos = new List<Rentas>();
+        List<Rentas> lstactivos = new List<Rentas>();
 
         public NodoArbolB raiz;
         public ArbolB()
@@ -517,6 +518,34 @@ namespace WebService
             }
         }
 
+
+        public void ListaActivo(Rentas renta, NodoArbolB nodo)
+        {
+
+            if (nodo.punteros != null)
+            {
+                for (int i = 0; i < nodo.punteros.Length - 1; i++)
+                {
+                    if (nodo.punteros[i] != null)
+                        ListaActivo(renta, nodo.punteros[i]);
+                }
+            }
+
+            for (int j = 0; j < nodo.llaves.Length - 1; j++)
+            {
+                if (nodo.llaves[j] != null)
+                {
+                    if (nodo.llaves[j].usuario.Equals(renta.usuario) && nodo.llaves[j].empresa.Equals(renta.empresa) && nodo.llaves[j].departamento.Equals(renta.departamento) && nodo.llaves[j].rentado == true)
+                    {
+                        lstactivos.Add(nodo.llaves[j]);
+
+                    }
+                }
+
+
+            }
+        }
+
         //    for (int i = 0; i < nodo.punteros.Length - 1; i++)
         //    {
         //        if (nodo.punteros[i] != null)
@@ -737,6 +766,28 @@ namespace WebService
                         print(nodo.punteros[i], sw);
                 }
             }
+        }
+        public List<string> ActivosActivos(string usuario, string empresa, string departamento)
+        {
+            Rentas rent = new Rentas();
+            rent.usuario = usuario;
+            rent.empresa = empresa;
+            rent.departamento = departamento;
+
+            ListaActivo(rent, raiz);
+
+
+            List<string> auxlista = new List<string>();
+            for (int i = 0; i < lstactivos.Count; i++)
+            {
+                Rentas aux = lstactivos[i];
+                auxlista.Add(aux.idActivo + "," + aux.nombre + "," + aux.descripcion);
+
+            }
+
+
+
+            return auxlista;
         }
     }
 }

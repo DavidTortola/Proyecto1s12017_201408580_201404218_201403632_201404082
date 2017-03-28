@@ -47,6 +47,7 @@ namespace WebService
             renta.nombre = nombre;
             renta.fecha = fecha;
             renta.tiempo = tiempo;
+            renta.rentado = true;
 
             arbolB.insertar(renta);
             arbolB.printGraphviz();
@@ -61,6 +62,15 @@ namespace WebService
             arbolB.Remover(renta);
             arbolB.printGraphviz();
             return "Transacciones eliminadas";
+
+        }
+
+        [WebMethod]
+        public List<string> getActivos(string usuario,string empresa, string departamento)
+        {
+            List<string> list = arbolB.ActivosActivos(usuario, empresa, departamento);
+
+            return list;
 
         }
 

@@ -27,6 +27,7 @@ namespace WebService
         public string tiempo;
         public string nombre;
         public string descripcion;
+        public Boolean rentado;
 
 
 
