@@ -34,7 +34,7 @@ namespace WebService
         }
 
         [WebMethod]
-        public string insertar(string idrenta, string idactivo, string user, string empresa, string departamento, string fecha, string tiempo)
+        public string insertar(string idrenta, string idactivo,string nombre,string descripcion, string user, string empresa, string departamento, string fecha, string tiempo)
         {
 
             Rentas renta = new Rentas();
@@ -43,6 +43,8 @@ namespace WebService
             renta.usuario = user;
             renta.empresa = empresa;
             renta.departamento = departamento;
+            renta.descripcion = descripcion;
+            renta.nombre = nombre;
             renta.fecha = fecha;
             renta.tiempo = tiempo;
 
@@ -55,7 +57,6 @@ namespace WebService
         [WebMethod]
         public string eliminar(string idActivo) {
             Rentas renta = new Rentas();
-
             renta.idActivo = idActivo;
             arbolB.Remover(renta);
             arbolB.printGraphviz();

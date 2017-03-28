@@ -25,6 +25,8 @@ namespace WebService
         public string fecha;
  
         public string tiempo;
+        public string nombre;
+        public string descripcion;
 
 
 
