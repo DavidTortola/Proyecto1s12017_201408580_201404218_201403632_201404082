@@ -2,7 +2,14 @@ digraph Matriz{ bgcolor=gray
 node [fontcolor="white", height=0.5, color="white"]
 [shape=circle, style=filled, color=blue]rankdir=UD 
 edge  [color="white", dir=fordware]
-ac;
-ac->ab;
-ac->ad;
+"k1ver55vrfxhp61";
+"k1ver55vrfxhp61"->"79t361c68t4xqlc";
+"79t361c68t4xqlc"->"4ma9qkkpq3r1mvu";
+"4ma9qkkpq3r1mvu"->"3eark4yeyur7slw";
+"79t361c68t4xqlc"->"epvk6cnjglatve4";
+"epvk6cnjglatve4"->"ecr5d8auw9wjymg";
+"k1ver55vrfxhp61"->"o6t6z6nsv3lfp9d";
+"o6t6z6nsv3lfp9d"->"l38wquhric93w5o";
+"o6t6z6nsv3lfp9d"->"qemeivrcl25zpaj";
+"qemeivrcl25zpaj"->"sgrseujgv1w7vxx";
 }

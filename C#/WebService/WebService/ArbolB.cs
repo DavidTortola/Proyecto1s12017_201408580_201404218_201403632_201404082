@@ -492,29 +492,31 @@ namespace WebService
         }
         public void Lista(Rentas renta, NodoArbolB nodo)
         {
-
-            if (nodo.punteros != null)
+            if (nodo != null)
             {
-                for (int i = 0; i < nodo.punteros.Length - 1; i++)
+                if (nodo.punteros != null)
                 {
-                    if (nodo.punteros[i] != null)
-                        Lista(renta, nodo.punteros[i]);
-                }
-            }
-
-            for (int j = 0; j < nodo.llaves.Length - 1; j++)
-            {
-                if (nodo.llaves[j] != null)
-                {
-                    if (nodo.llaves[j].idActivo.Equals(renta.idActivo))
+                    for (int i = 0; i < nodo.punteros.Length - 1; i++)
                     {
-                        Console.WriteLine("Raiz: " + nodo.llaves[j].identificador + " Activo:" + nodo.llaves[j].idActivo);
-                        lstnodos.Add(nodo.llaves[j]);
-
+                        if (nodo.punteros[i] != null)
+                            Lista(renta, nodo.punteros[i]);
                     }
                 }
 
+                for (int j = 0; j < nodo.llaves.Length - 1; j++)
+                {
+                    if (nodo.llaves[j] != null)
+                    {
+                        if (nodo.llaves[j].idActivo.Equals(renta.idActivo))
+                        {
+                            Console.WriteLine("Raiz: " + nodo.llaves[j].identificador + " Activo:" + nodo.llaves[j].idActivo);
+                            lstnodos.Add(nodo.llaves[j]);
 
+                        }
+                    }
+
+
+                }
             }
         }
 

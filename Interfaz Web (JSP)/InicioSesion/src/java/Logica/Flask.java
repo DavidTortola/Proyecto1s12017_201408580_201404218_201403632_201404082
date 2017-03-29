@@ -58,17 +58,17 @@ public class Flask {
 
     public String EliminarActivo(String user, String empresa, String departamento, String id) {
 
-        sendText(user, empresa, departamento, id, "eliminaractivo");
+        
         
         new WebService1().getWebService1Soap().eliminar(id);
 
-        return "Eliminado";
+        return sendText(user, empresa, departamento, id, "eliminaractivo");
     }
 
     public String RegistrarActivo(String usuario, String producto, String Descripcion, String empresa, String departamento) {
-        String arreglo = usuario + "$" + producto + "$" + Descripcion + "$" + empresa + "$" + departamento;
+        
 
-        return sendText(arreglo, "registrarActivo");
+        return sendText(usuario, empresa, departamento, producto, Descripcion,"registrarActivo");
 
     }
     public String modificarActivo(String usuario,String id, String producto, String Descripcion, String empresa, String departamento) {
@@ -131,7 +131,9 @@ public class Flask {
         return r;
     }
 
-    public static String sendText(String usuario, String empresa, String departamento, String id, String tipo) {
+    
+
+    public static String sendText(String usuario, String empresa, String departamento,String id, String tipo) {
 
         RequestBody formBody = new FormEncodingBuilder()
                 .add("tipo", tipo)
@@ -143,5 +145,18 @@ public class Flask {
         String r = getString("Matriz", formBody);
         return r;
     }
+    public static String sendText(String usuario, String empresa, String departamento, String nombre,String descripcion, String tipo) {
 
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("tipo", tipo)
+                .add("usuario", usuario)
+                .add("empresa", empresa)
+                .add("departamento", departamento)
+                .add("nombre", nombre)
+                .add("descripcion", descripcion)
+                .build();
+        String r = getString("Matriz", formBody);
+        return r;
+    }
 }
+

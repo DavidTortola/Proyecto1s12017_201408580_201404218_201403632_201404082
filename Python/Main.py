@@ -7,7 +7,7 @@ AVL= Arbol
 
 
 from ArbolAVL import Activo
-ac= Activo
+ac = Activo
 
 from MatrizDispersa import GeneradorID
 
@@ -65,8 +65,6 @@ def usuario2():
 
 	elif str(request.form['tipo'])=="registrarActivo":
 
-		arreglo = str(request.form['informacion']).split("$")
-
 		generador = GI.GeneradorID()
 
 
@@ -76,13 +74,17 @@ def usuario2():
 
 		activo.setId(identificador)
 
-		activo.setUsuario(arreglo[0])
+		activo.setUsuario(str(request.form['usuario']))
 
-		activo.setNombre(arreglo[1])
+		activo.setEmpresa(str(request.form['empresa']))
 
-		activo.setDescripcion(arreglo[2])
+		activo.setDepartamento(str(request.form['departamento']))
 
-		usuario = matriz1.buscar(arreglo[0],arreglo[3],arreglo[4])
+		activo.setNombre(str(request.form['nombre']))
+
+		activo.setDescripcion(str(request.form['descripcion']))
+
+		usuario = matriz1.buscar(str(request.form['usuario']),str(request.form['empresa']),str(request.form['departamento']))
 
 		arbol= usuario.getArbol()
 
@@ -119,8 +121,11 @@ def usuario2():
 		return valores
 	elif str(request.form['tipo'])=="eliminaractivo":
 		usuario = matriz1.buscar(str(request.form['usuario']),str(request.form['empresa']),str(request.form['departamento']))
+		
 		arbol= usuario.getArbol()
 		valores = arbol.eliminar(str(request.form['id']))
+		arbol.impreArbol(arbol.getRoot(), None)
+		return "Eliminado"
 
 	elif str(request.form['tipo'])=="modificaractivo":
 

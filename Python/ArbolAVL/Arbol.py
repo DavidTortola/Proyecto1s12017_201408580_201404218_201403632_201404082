@@ -127,9 +127,9 @@ class AVL(object):
 	#Metodo que compara dos entradas, si se usan letras compara el ASCII.
 	def comparar(self,v1,v2):
 		resultado= 0
-		if v1.getId()<v2.getId() :
+		if str(v1.getId())<str(v2.getId()) :
 			resultado=-1
-		elif v1.getId()>v2.getId():
+		elif str(v1.getId())>str(v2.getId()):
 			resultado=1
 		else:
 			resultado = 0 
@@ -199,14 +199,14 @@ class AVL(object):
 				self.f.write("[shape=circle, style=filled, color=blue]")
 				self.f.write("rankdir=UD \n")
 				self.f.write("edge  [color=\"white\", dir=fordware]\n")
-				self.f.write(str(nodo.getValor().getId()) +";\n")
+				self.f.write("\""+str(nodo.getValor().getId())+"\"" +";\n")
 				self.impreArbol(nodo.getIzquierda(), nodo)
 				self.impreArbol(nodo.getDerecha(), nodo)
 				self.f.write("}")
 				self.f.close()
 				subprocess.Popen("dot -Tpng Graficas\AVL.txt -o Graficas\AVL.png")
 			else:
-				self.f.write(str(padre.getValor().getId()) +"->" +str(nodo.getValor().getId()) +";\n")
+				self.f.write("\""+str(padre.getValor().getId())+"\"" +"->" +"\""+str(nodo.getValor().getId())+"\"" +";\n")
 				self.impreArbol(nodo.getIzquierda(), nodo)
 				self.impreArbol(nodo.getDerecha(), nodo)
 

@@ -44,7 +44,7 @@ public class Principal {
      * Web service operation
      */
     @WebMethod(operationName = "Registrar")
-    public String Registrar(@WebParam(name = "usuario") String usuario, @WebParam(name = "pass") String pass, @WebParam(name = "nombre") String nombre, @WebParam(name = "departamento") String departamento, @WebParam(name = "empresa") String empresa) {
+    public String Registrar(@WebParam(name = "usuario") String usuario, @WebParam(name = "pass") String pass, @WebParam(name = "nombre") String nombre, @WebParam(name = "empresa") String empresa, @WebParam(name = "departamento") String departamento) {
         //TODO write your implementation code here:
         return (new Flask().Registrar(usuario, pass, nombre, empresa, departamento));
     }
@@ -103,14 +103,6 @@ public class Principal {
         return (new Flask().modificarActivo(usuario, id, producto, descripcion, empresa, departamento));
     }
 
-    /**
-     * Web service operation
-     */
-    @WebMethod(operationName = "EliminarActivo")
-    public String EliminarActivo(@WebParam(name = "usuario") String usuario, @WebParam(name = "id") String id, @WebParam(name = "empresa") String empresa, @WebParam(name = "deartamento") String deartamento) {
-        //TODO write your implementation code here:
-        return new Flask().EliminarActivo(usuario, empresa, deartamento, id);
-    }
 
     /**
      * Web service operation
@@ -134,6 +126,16 @@ public class Principal {
         //TODO write your implementation code here:
         List<String> gg = (new WebService1().getWebService1Soap().getActivos(usuario, empresa, departamento)).getString();
         return gg.get(0);
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "EliminarActivo")
+    public String EliminarActivo(@WebParam(name = "usuario") String usuario, @WebParam(name = "empresa") String empresa, @WebParam(name = "departamento") String departamento, @WebParam(name = "id") String id) {
+        //TODO write your implementation code here:
+        new WebService1().getWebService1Soap().eliminar(id);
+        return  new Flask().EliminarActivo(usuario, empresa, departamento, id);
     }
     
 }
